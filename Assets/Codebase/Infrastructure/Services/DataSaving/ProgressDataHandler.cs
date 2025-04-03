@@ -11,7 +11,7 @@ namespace Codebase.Infrastructure.Services.DataSaving
 {
     public class ProgressDataHandler
     {
-        private readonly GameData _gameData;
+        private GameData _gameData;
         
         private readonly List<IDataReader> _dataOperators = new();
 
@@ -32,7 +32,7 @@ namespace Codebase.Infrastructure.Services.DataSaving
         {
             if (_dataOperators.Contains(dataOperator))
             {
-                dataOperator.Save(_gameData);
+                dataOperator.Save(ref _gameData);
 
                 string json = JsonUtility.ToJson(_gameData, true);
                 File.WriteAllText(DataPath, json);

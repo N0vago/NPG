@@ -1,19 +1,31 @@
 ﻿using System;
+using Codebase.Infrastructure.Data;
+using Codebase.Infrastructure.Services.DataSaving;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Codebase.Game
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDataWriter
     {
         [SerializeField] private float moveSpeed;
+
+        private ProgressDataHandler _progressDataHandler;
         
         private InputActions _inputActions;
         private InputAction _moveAction;
         
         private Rigidbody _rb;
         private Vector2 _moveDirection;
+
+        [Inject]
+        public void Construct(ProgressDataHandler progressDataHandler)
+        {
+            _progressDataHandler = progressDataHandler;
+            _progressDataHandler.RegisterObserver(this);
+        }
 
         private void Awake()
         {
@@ -29,6 +41,7 @@ namespace Codebase.Game
         private void OnDisable()
         {
             _moveAction.Disable();
+            _progressDataHandler.SaveProgress(this);
         }
 
         private void Start()
@@ -66,6 +79,15 @@ namespace Codebase.Game
 
             transform.rotation = lookRotation;
         }
-        
+
+        public void Load(GameData data)
+        {
+            
+        }
+
+        public void Save(ref GameData data)
+        {
+            data.playerData.playerPosition = gameObject.transform.position;
+        }
     }
 }

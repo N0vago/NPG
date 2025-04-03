@@ -4,6 +4,6 @@ namespace Codebase.Infrastructure.Services.DataSaving
 {
     public interface IDataWriter : IDataReader
     {
-        void Save(GameData data);
+        void Save(ref GameData data);
     }
 }
