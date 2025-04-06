@@ -1,4 +1,5 @@
 ﻿using Codebase.Game;
+using Codebase.Game.Player;
 using Codebase.Infrastructure.Data;
 using Codebase.Infrastructure.Services.DataSaving;
 using UnityEngine;

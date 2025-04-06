@@ -1,4 +1,5 @@
 ﻿using Codebase.Game;
+using Codebase.Game.Player;
 using Codebase.Infrastructure.GameBase.StateMachine.GameStates;
 using Codebase.Infrastructure.Services;
 using Zenject;

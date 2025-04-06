@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Codebase.Infrastructure.Data;
-using ModestTree;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -57,13 +55,9 @@ namespace Codebase.Infrastructure.Services.DataSaving
         {
             for (int i = 0; i < _dataOperators.Count; i++)
             {
-                Type type = _dataOperators[i].GetType();
-                if (type == typeof(IDataWriter))
-                {
-                    IDataWriter dataWriter = (IDataWriter)_dataOperators[i];
+                if (_dataOperators[i] is IDataWriter dataWriter){
                     SaveProgress(dataWriter);
                 }
-                
             }
         }
 

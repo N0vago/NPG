@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd4d96391a34f94b15355119e9b9ddf, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  twoHanded: 1
+  spreadRadius: 0
+  explosionRadius: 0
+  explosionDelay: 0
+  projectileSpeed: 0
+  freezingTime: 0
+  sphereRadius: 0
+  weaponPrefab: {fileID: 4310594693298768912, guid: 6ac934b9ac0446444916a48274a9f89f, type: 3}
+  damage: 0
+  reloadTime: 0
+  range: 100
+  fireRate: 0
+  magSize: 0
+  currentAmmo: 0
+  accuracy: 0
+  isReloading: 0
