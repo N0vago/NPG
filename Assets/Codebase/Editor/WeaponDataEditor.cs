@@ -1,4 +1,5 @@
-﻿using Codebase.Game.Weapon;
+﻿using Codebase.Game.Data;
+using Codebase.Game.Weapon;
 using UnityEditor;
 using UnityEngine;
 

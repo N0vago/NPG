@@ -1,19 +1,14 @@
 ﻿using System;
-using Codebase.Infrastructure.Data;
-using Codebase.Infrastructure.Services.DataSaving;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
 namespace Codebase.Game.Player
 {
-    public class PlayerController : MonoBehaviour, IDataWriter
+    public class PlayerController : MonoBehaviour
     {
         [SerializeField] private float moveSpeed;
         [SerializeField] private GameObject topPart;
         [SerializeField] private GameObject bottomPart;
-
-        private ProgressDataHandler _progressDataHandler;
         
         private InputActions _inputActions;
         
@@ -26,23 +21,6 @@ namespace Codebase.Game.Player
         private Vector2 _moveDirection;
 
         public event Action<InputAction.CallbackContext> OnFire;
-
-        [Inject]
-        public void Construct(ProgressDataHandler progressDataHandler)
-        {
-            _progressDataHandler = progressDataHandler;
-            _progressDataHandler.RegisterObserver(this);
-        }
-
-        public void Load(GameData data)
-        {
-            
-        }
-
-        public void Save(ref GameData data)
-        {
-            data.playerData.playerPosition = gameObject.transform.position;
-        }
 
         private void Awake()
         {
@@ -70,7 +48,7 @@ namespace Codebase.Game.Player
             _aimAction.Disable();
             _fireAction.started -= Fire;
             
-            _progressDataHandler.SaveProgress(this);
+            
         }
 
         private void Start()

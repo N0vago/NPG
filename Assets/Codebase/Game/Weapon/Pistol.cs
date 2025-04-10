@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Codebase.Game.Data;
+using Codebase.Game.Modules;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 namespace Codebase.Game.Weapon
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class Pistol : MonoBehaviour, IWeapon
     {
         [SerializeField] private WeaponData weaponData;
@@ -27,24 +27,13 @@ namespace Codebase.Game.Weapon
             Debug.DrawRay(muzzlePoints[1].position, muzzlePoints[1].up * 100f, Color.red);
         }
 
-        public void Shoot()
+        public async void Shoot()
         {
-            Transform point = muzzlePoints[0];
-            Vector3 origin = point.position;
-            
-            
-            if (weaponData.twoHanded)
+            float fireRateInSeconds = 1 / weaponData.fireRate;
+            if (!weaponData.isReloading)
             {
-                point = muzzlePoints[Random.Range(0, 2)];
-                origin = point.position;
-            }
-            
-            
-            bool raycast = Physics.Raycast(origin, point.up, out _hitInfo ,weaponData.range);
-            
-            if (raycast)
-            {
-                Debug.Log($"Hitted: {_hitInfo.collider.name}");
+                await UniTask.WaitForSeconds(fireRateInSeconds); 
+                CastBullet();
             }
             
         }
@@ -52,6 +41,29 @@ namespace Codebase.Game.Weapon
         public void Reload()
         {
             
+        }
+
+        private void CastBullet()
+        {
+            Transform point = muzzlePoints[0];
+            Vector3 origin = point.position;
+            
+            if (weaponData.twoHanded)
+            {
+                point = muzzlePoints[Random.Range(0, 2)];
+                origin = point.position;
+            }
+            
+            bool raycast = Physics.Raycast(origin, point.up, out _hitInfo, weaponData.range);
+            
+            if (raycast)
+            {
+                Debug.Log($"Hitted: {_hitInfo.collider.name}");
+                if (_hitInfo.collider.TryGetComponent(out HealthModule healthModule))
+                {
+                    _ = healthModule.ReceiveDamage(weaponData.damage);
+                }
+            }
         }
     }
 }

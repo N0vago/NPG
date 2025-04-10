@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Codebase.Game.Weapon
+namespace Codebase.Game.Data
 {
     [CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObjects/Weapon", order = 1)]
     public class WeaponData : ScriptableObject
