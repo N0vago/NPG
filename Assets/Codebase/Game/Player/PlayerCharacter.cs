@@ -1,4 +1,5 @@
-﻿using Codebase.Game.Weapon;
+﻿using System;
+using Codebase.Game.Weapon;
 using Codebase.Infrastructure.Data;
 using Codebase.Infrastructure.Services.DataSaving;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Codebase.Game.Player
     [RequireComponent(typeof(PlayerController))]
     public class PlayerCharacter : MonoBehaviour, IDataWriter
     {
-        [SerializeField] private Pistol pistol;
+        private IWeapon _currentWeapon;
         
         private PlayerController _playerController;
         private ProgressDataHandler _progressDataHandler;
@@ -20,6 +21,11 @@ namespace Codebase.Game.Player
         {
             _progressDataHandler = progressDataHandler;
             _progressDataHandler.RegisterObserver(this);
+        }
+
+        public void SetWeapon(IWeapon weapon)
+        {
+            _currentWeapon = weapon;
         }
 
         public void Load(GameData data)
@@ -41,17 +47,23 @@ namespace Codebase.Game.Player
         private void OnEnable()
         {
             _playerController.OnFire += Fire;
+            _playerController.OnReload += Reload;
         }
 
         private void OnDisable()
         {
             _playerController.OnFire -= Fire;
+            _playerController.OnReload -= Reload;
             _progressDataHandler.SaveProgress(this);
         }
 
-        private void Fire(InputAction.CallbackContext obj)
+        private void Start()
         {
-            pistol.Shoot();
+            SetWeapon(GetComponentInChildren<Weapon.Weapon>());
         }
+
+        private void Fire(InputAction.CallbackContext context) => _currentWeapon.Shoot(context);
+
+        private void Reload(InputAction.CallbackContext context) => _currentWeapon.Reload();
     }
 }

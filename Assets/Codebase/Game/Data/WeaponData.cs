@@ -1,16 +1,31 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Codebase.Game.Data
 {
     [CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObjects/Weapon", order = 1)]
     public class WeaponData : ScriptableObject
     {
-        
+        public WeaponSettings weaponSettings;
+    }
+
+    public enum WeaponType
+    {
+        Pistol,
+        Shotgun,
+        MachineGun,
+        GrenadeLauncher,
+        Flamethrower,
+        EnergyGun
+    }
+
+    [Serializable]
+    public struct WeaponSettings
+    {
         public WeaponType weaponType;
-        //Pistol
-        public bool twoHanded;
         //Shotgun
-        public float spreadRadius;
+        public int spreadRadius;
         //Grenade launcher
         public float explosionRadius ;
         public float explosionDelay ;
@@ -19,29 +34,14 @@ namespace Codebase.Game.Data
         public float freezingTime;
         //Flamethrower
         public float sphereRadius;
-
-        [Header("General settings")] 
-        public GameObject weaponPrefab;
         
+        public GameObject weaponPrefab;
+
         public float damage;
         public float reloadTime;
-        public int range;
         public float fireRate;
         public int magSize;
-        public int currentAmmo;
+        
         public int accuracy;
-
-        [HideInInspector]
-        public bool isReloading;
-    }
-
-    public enum WeaponType
-    {
-        Gun,
-        Shotgun,
-        MachineGun,
-        GrenadeLauncher,
-        Flamethrower,
-        EnergyGun
     }
 }

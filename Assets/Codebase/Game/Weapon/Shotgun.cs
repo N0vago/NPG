@@ -1,24 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using Codebase.Game.Data;
 using Codebase.Game.Modules;
-using Codebase.Game.Player;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-
 namespace Codebase.Game.Weapon
 {
-    public class Pistol : Weapon
+    public class Shotgun : Weapon
     {
-        
+        private const int BuckshotCount = 10;
 
         private void Update()
         {
-            Debug.DrawLine(_muzzlePoints[0].position, AccuracyCorrection(weaponData.weaponSettings.accuracy, PlayerController.ToMousePosition(_muzzlePoints[0].position)) * 100f, Color.red);
-            Debug.DrawLine(_muzzlePoints[1].position, AccuracyCorrection(weaponData.weaponSettings.accuracy, PlayerController.ToMousePosition(_muzzlePoints[1].position)) * 100f, Color.red);
+            for (int i = 0; i <= 10; i++)
+            {
+                Vector2 pos = CalculateBuckshotPos(
+                    weaponData.weaponSettings.spreadRadius,
+                    PlayerController.ToMousePosition(_muzzlePoints[0].position).normalized
+                );
+                Debug.DrawLine(
+                    _muzzlePoints[0].position, 
+                     new Vector3(pos.x, 0, pos.y) * 100f,
+                    Color.red
+                );
+            }
         }
 
         public override async void Shoot(InputAction.CallbackContext context)
@@ -31,7 +38,7 @@ namespace Codebase.Game.Weapon
                 ShootingCts = new CancellationTokenSource();
                 var token = ShootingCts.Token;
 
-                float fireRateInSeconds = 1f / weaponData.weaponSettings.fireRate;
+                float fireRateInSeconds = 60f / weaponData.weaponSettings.fireRate;
                 IsShooting = true;
 
                 while (IsShooting && !token.IsCancellationRequested)
@@ -57,8 +64,6 @@ namespace Codebase.Game.Weapon
                 ShootingCts?.Cancel();
             }
         }
-        
-
         private void CastBullet(List<Transform> muzzlePoints)
         {
             Transform point = muzzlePoints[Random.Range(0, muzzlePoints.Count)];
@@ -67,27 +72,40 @@ namespace Codebase.Game.Weapon
 
             if (CurrentAmmo <= 0)
             {
-                Debug.Log("No ammo, reloading...");
                 Reload();
                 return;
             }
 
             CurrentAmmo--;
-            Debug.Log($"Current ammo: {CurrentAmmo}");
-            
-            bool hit = Physics.Raycast(origin, AccuracyCorrection(weaponData.weaponSettings.accuracy, PlayerController.ToMousePosition(origin)), out RaycastHit hitInfo);
-    
-            if (hit)
+
+           
+            for (int i = 0; i <= BuckshotCount; i++)
             {
-                Debug.Log($"Hit: {hitInfo.collider.name}");
                 
-                if (hitInfo.collider.TryGetComponent(out HealthModule healthModule))
+                var hit = Physics.Raycast(origin, 
+                    CalculateBuckshotPos(weaponData.weaponSettings.spreadRadius, PlayerController.ToMousePosition(origin)),
+                            out RaycastHit hitInfo
+                );
+
+                if (hit)
                 {
-                    _ = healthModule.ReceiveDamage(weaponData.weaponSettings.damage);
+                    Debug.Log($"Hit: {hitInfo.collider.name}");
+                
+                    if (hitInfo.collider.TryGetComponent(out HealthModule healthModule))
+                    {
+                        _ = healthModule.ReceiveDamage(weaponData.weaponSettings.damage);
+                    }
                 }
             }
         }
 
-        
+        private Vector2 CalculateBuckshotPos(int spreadRadius, Vector3 origin)
+        {
+            float theta = Random.value * 2 * Mathf.PI;
+
+            float randomValue = Mathf.Sqrt(Random.Range(0, spreadRadius + 1));
+
+            return new Vector2(origin.x + randomValue * Mathf.Cos(theta), origin.z + randomValue * Mathf.Sin(theta));
+        }
     }
 }

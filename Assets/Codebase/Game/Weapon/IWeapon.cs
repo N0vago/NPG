@@ -1,8 +1,10 @@
-﻿namespace Codebase.Game.Weapon
+﻿using UnityEngine.InputSystem;
+
+namespace Codebase.Game.Weapon
 {
     public interface IWeapon
     {
-        void Shoot();
+        void Shoot(InputAction.CallbackContext context);
 
         void Reload();
     }

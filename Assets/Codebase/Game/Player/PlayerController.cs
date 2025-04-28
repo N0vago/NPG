@@ -15,12 +15,31 @@ namespace Codebase.Game.Player
         private InputAction _moveAction;
         private InputAction _fireAction;
         private InputAction _aimAction;
+        private InputAction _reloadAction;
 
         private Camera _camera;
         private Rigidbody _rb;
+        
         private Vector2 _moveDirection;
-
+        private Vector2 _mousePosition;
         public event Action<InputAction.CallbackContext> OnFire;
+        public event Action<InputAction.CallbackContext> OnReload;
+
+        public Vector3 ToMousePosition(Vector3 origin)
+        {
+            Ray ray = _camera.ScreenPointToRay(_mousePosition);
+            
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 worldCursorPos = ray.GetPoint(hit.distance);
+                
+                Vector3 direction = worldCursorPos - origin;
+                
+                return direction;
+            }
+
+            return Vector3.up;
+        }
 
         private void Awake()
         {
@@ -38,6 +57,11 @@ namespace Codebase.Game.Player
             _fireAction = _inputActions.Player.Attack;
             _fireAction.Enable();
             _fireAction.started += Fire;
+            _fireAction.canceled += Fire;
+
+            _reloadAction = _inputActions.Player.Reload;
+            _reloadAction.Enable();
+            _reloadAction.performed += ReloadWeapon;
         }
 
 
@@ -46,11 +70,13 @@ namespace Codebase.Game.Player
             _moveAction.Disable();
             _fireAction.Disable();
             _aimAction.Disable();
+            _reloadAction.Disable();
+            
             _fireAction.started -= Fire;
-            
-            
-        }
+            _fireAction.canceled -= Fire;
 
+            _reloadAction.performed -= ReloadWeapon;
+        }
         private void Start()
         {
             _rb = gameObject.GetComponent<Rigidbody>();
@@ -60,6 +86,7 @@ namespace Codebase.Game.Player
         private void Update()
         {
             _moveDirection = _moveAction.ReadValue<Vector2>();
+            _mousePosition = _aimAction.ReadValue<Vector2>();
         }
 
         private void FixedUpdate()
@@ -92,7 +119,7 @@ namespace Codebase.Game.Player
 
         private void TopPartLook()
         {
-            Ray ray = _camera.ScreenPointToRay(_aimAction.ReadValue<Vector2>());
+            Ray ray = _camera.ScreenPointToRay(_mousePosition);
             Plane groundPlane = new Plane(Vector3.up, topPart.transform.position);
 
             if (groundPlane.Raycast(ray, out float enter))
@@ -101,7 +128,7 @@ namespace Codebase.Game.Player
                 
                 Vector3 direction = worldCursorPos - topPart.transform.position;
                 direction.y = 0f;
-
+                
                 if (direction != Vector3.zero)
                 {
                     Quaternion rotation = Quaternion.LookRotation(direction);
@@ -111,5 +138,7 @@ namespace Codebase.Game.Player
         }
 
         private void Fire(InputAction.CallbackContext obj) => OnFire?.Invoke(obj);
+
+        private void ReloadWeapon(InputAction.CallbackContext obj) => OnReload?.Invoke(obj);
     }
 }

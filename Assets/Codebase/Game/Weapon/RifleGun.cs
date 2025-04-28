@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Codebase.Game.Data;
 using Codebase.Game.Modules;
@@ -8,17 +9,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
-
 namespace Codebase.Game.Weapon
 {
-    public class Pistol : Weapon
+    public class RifleGun : Weapon
     {
-        
-
         private void Update()
         {
             Debug.DrawLine(_muzzlePoints[0].position, AccuracyCorrection(weaponData.weaponSettings.accuracy, PlayerController.ToMousePosition(_muzzlePoints[0].position)) * 100f, Color.red);
-            Debug.DrawLine(_muzzlePoints[1].position, AccuracyCorrection(weaponData.weaponSettings.accuracy, PlayerController.ToMousePosition(_muzzlePoints[1].position)) * 100f, Color.red);
         }
 
         public override async void Shoot(InputAction.CallbackContext context)
@@ -31,7 +28,7 @@ namespace Codebase.Game.Weapon
                 ShootingCts = new CancellationTokenSource();
                 var token = ShootingCts.Token;
 
-                float fireRateInSeconds = 1f / weaponData.weaponSettings.fireRate;
+                float fireRateInSeconds = 60f / weaponData.weaponSettings.fireRate;
                 IsShooting = true;
 
                 while (IsShooting && !token.IsCancellationRequested)
@@ -57,7 +54,6 @@ namespace Codebase.Game.Weapon
                 ShootingCts?.Cancel();
             }
         }
-        
 
         private void CastBullet(List<Transform> muzzlePoints)
         {
@@ -87,7 +83,5 @@ namespace Codebase.Game.Weapon
                 }
             }
         }
-
-        
     }
 }
