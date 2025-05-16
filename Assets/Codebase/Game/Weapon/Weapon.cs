@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
-using Codebase.Game.Data;
 using Codebase.Game.Player;
+using Codebase.Game.ScriptableObjects;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 using Random = UnityEngine.Random;
 
 namespace Codebase.Game.Weapon
@@ -13,41 +12,67 @@ namespace Codebase.Game.Weapon
     public abstract class Weapon : MonoBehaviour, IWeapon
     {
         [SerializeField] protected WeaponData weaponData;
-        [SerializeField] protected WeaponType weaponType;
-        [SerializeField] protected List<Transform> _muzzlePoints;
+        [SerializeField] protected Transform muzzlePoint;
         [SerializeField] protected int reservedAmmo;
-
-        //Currently here for prototyping purpose
-        protected PlayerController PlayerController;
-        
-        protected CancellationTokenSource ShootingCts;
-
-        protected bool IsEquiped;
-        protected bool IsReloading;
-        protected bool IsShooting;
         
         protected int CurrentAmmo;
+        protected PlayerController PlayerController;
         
-        private void Start()
-        {
-            if (weaponData.weaponSettings.weaponType != weaponType)
-            {
-                Debug.LogError($"Wrong configuration was set for: {gameObject.name}");
-            }
 
+        private CancellationTokenSource _shootingCts;
+        
+        public bool IsReloading { get; private set; }
+
+        public bool IsShooting { get; private set; }
+
+        private void OnEnable()
+        {
             PlayerController = GetComponentInParent<PlayerController>();
         }
-        public abstract void Shoot(InputAction.CallbackContext context);
 
-        public async void Reload()
+        public async UniTask PullTrigger()
+        {
+            if (_shootingCts != null)
+                _shootingCts.Cancel();
+            
+            _shootingCts = new CancellationTokenSource();
+            var token = _shootingCts.Token;
+            
+            float fireRateInSeconds = 60f / weaponData.fireRate;
+            IsShooting = true;
+
+            while (IsShooting && !token.IsCancellationRequested)
+            {
+                if (!IsReloading && CurrentAmmo > 0)
+                {
+                    CreateBullet();
+                }
+                else if (CurrentAmmo <= 0)
+                {
+                    Reload().Forget();
+                    IsShooting = false;
+                    break;
+                }
+
+                await UniTask.WaitForSeconds(fireRateInSeconds, cancellationToken: token);
+            }
+        }
+
+        public void ReleaseTrigger()
+        {
+            IsShooting = false;
+            _shootingCts?.Cancel();
+        }
+
+        public async UniTask Reload()
         {
             if (IsReloading) return;
 
             IsReloading = true;
 
-            await UniTask.WaitForSeconds(weaponData.weaponSettings.reloadTime);
+            await UniTask.WaitForSeconds(weaponData.reloadTime, cancellationToken: this.GetCancellationTokenOnDestroy());
 
-            int neededAmmo = weaponData.weaponSettings.magSize - CurrentAmmo;
+            int neededAmmo = weaponData.magSize - CurrentAmmo;
 
             if (neededAmmo <= 0)
             {
@@ -69,7 +94,7 @@ namespace Codebase.Game.Weapon
 
             IsReloading = false;
         }
-
+        
         protected Vector3 AccuracyCorrection(int accuracy, Vector3 rawDirection)
         {
             float x = Random.Range(0f, accuracy);
@@ -77,6 +102,6 @@ namespace Codebase.Game.Weapon
             Vector3 directionModifier = new Vector3(x, 0f, y);
             return rawDirection + directionModifier;
         }
-        
+        protected abstract void CreateBullet();
     }
 }

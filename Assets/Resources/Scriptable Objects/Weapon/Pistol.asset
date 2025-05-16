@@ -12,17 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd4d96391a34f94b15355119e9b9ddf, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  weaponSettings:
-    weaponType: 0
-    spreadRadius: 2
-    explosionRadius: 0
-    explosionDelay: 0
-    projectileSpeed: 0
-    freezingTime: 0
-    sphereRadius: 0
-    weaponPrefab: {fileID: 4310594693298768912, guid: 6ac934b9ac0446444916a48274a9f89f, type: 3}
-    damage: 10
-    reloadTime: 1
-    fireRate: 1000
-    magSize: 30
-    accuracy: 1
+  damage: 40
+  reloadTime: 1
+  fireRate: 120
+  magSize: 20
+  accuracy: 2

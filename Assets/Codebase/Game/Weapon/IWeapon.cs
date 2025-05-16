@@ -1,11 +1,15 @@
-﻿using UnityEngine.InputSystem;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Codebase.Game.Weapon
 {
     public interface IWeapon
     {
-        void Shoot(InputAction.CallbackContext context);
+        UniTask PullTrigger();
+        
+        void ReleaseTrigger();
 
-        void Reload();
+        UniTask Reload();
     }
 }

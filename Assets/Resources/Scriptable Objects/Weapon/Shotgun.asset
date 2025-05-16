@@ -12,17 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd4d96391a34f94b15355119e9b9ddf, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  weaponSettings:
-    weaponType: 1
-    spreadRadius: 4
-    explosionRadius: 0
-    explosionDelay: 0
-    projectileSpeed: 0
-    freezingTime: 0
-    sphereRadius: 0
-    weaponPrefab: {fileID: 0}
-    damage: 5
-    reloadTime: 2
-    fireRate: 30
-    magSize: 10
-    accuracy: 0
+  damage: 30
+  reloadTime: 2
+  fireRate: 60
+  magSize: 5
+  accuracy: 3

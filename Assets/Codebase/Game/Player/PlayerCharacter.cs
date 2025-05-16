@@ -46,14 +46,14 @@ namespace Codebase.Game.Player
 
         private void OnEnable()
         {
-            _playerController.OnFire += Fire;
-            _playerController.OnReload += Reload;
+            _playerController.StartFireAction += () => _currentWeapon.PullTrigger();
+            _playerController.StopFireAction += () => _currentWeapon.ReleaseTrigger();
+            _playerController.ReloadAction += () => _currentWeapon.Reload();
         }
+        
 
         private void OnDisable()
         {
-            _playerController.OnFire -= Fire;
-            _playerController.OnReload -= Reload;
             _progressDataHandler.SaveProgress(this);
         }
 
@@ -61,9 +61,5 @@ namespace Codebase.Game.Player
         {
             SetWeapon(GetComponentInChildren<Weapon.Weapon>());
         }
-
-        private void Fire(InputAction.CallbackContext context) => _currentWeapon.Shoot(context);
-
-        private void Reload(InputAction.CallbackContext context) => _currentWeapon.Reload();
     }
 }

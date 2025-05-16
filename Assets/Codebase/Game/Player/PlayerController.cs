@@ -20,26 +20,13 @@ namespace Codebase.Game.Player
         private Camera _camera;
         private Rigidbody _rb;
         
-        private Vector2 _moveDirection;
         private Vector2 _mousePosition;
-        public event Action<InputAction.CallbackContext> OnFire;
-        public event Action<InputAction.CallbackContext> OnReload;
-
-        public Vector3 ToMousePosition(Vector3 origin)
-        {
-            Ray ray = _camera.ScreenPointToRay(_mousePosition);
-            
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                Vector3 worldCursorPos = ray.GetPoint(hit.distance);
-                
-                Vector3 direction = worldCursorPos - origin;
-                
-                return direction;
-            }
-
-            return Vector3.up;
-        }
+        private Vector2 _moveDirection;
+        
+        public Vector3 MousePosition => GetMouseWorldPosition();
+        public event Action StartFireAction;
+        public event Action StopFireAction;
+        public event Action ReloadAction;
 
         private void Awake()
         {
@@ -56,8 +43,8 @@ namespace Codebase.Game.Player
 
             _fireAction = _inputActions.Player.Attack;
             _fireAction.Enable();
-            _fireAction.started += Fire;
-            _fireAction.canceled += Fire;
+            _fireAction.started += OnStartFire;
+            _fireAction.canceled += OnStopFire;
 
             _reloadAction = _inputActions.Player.Reload;
             _reloadAction.Enable();
@@ -72,8 +59,8 @@ namespace Codebase.Game.Player
             _aimAction.Disable();
             _reloadAction.Disable();
             
-            _fireAction.started -= Fire;
-            _fireAction.canceled -= Fire;
+            _fireAction.started -= OnStartFire;
+            _fireAction.canceled -= OnStopFire;
 
             _reloadAction.performed -= ReloadWeapon;
         }
@@ -100,7 +87,9 @@ namespace Codebase.Game.Player
             TopPartLook();
         }
 
-        private void Move() => _rb.MovePosition(bottomPart.transform.position + bottomPart.transform.forward * (_moveDirection.magnitude * moveSpeed * Time.deltaTime));
+        private void Move() =>
+            _rb.MovePosition(bottomPart.transform.position +
+                             bottomPart.transform.forward * ((int)_moveDirection.magnitude * moveSpeed * Time.deltaTime));
 
         private void BottomPartLook()
         {
@@ -136,9 +125,23 @@ namespace Codebase.Game.Player
                 }
             }
         }
+        
+        private Vector3 GetMouseWorldPosition()
+        {
+            Ray ray = _camera.ScreenPointToRay(_mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, topPart.transform.position);
 
-        private void Fire(InputAction.CallbackContext obj) => OnFire?.Invoke(obj);
+            if (groundPlane.Raycast(ray, out float enter))
+            {
+                Vector3 worldCursorPos = ray.GetPoint(enter);
+                return worldCursorPos;
+            }
 
-        private void ReloadWeapon(InputAction.CallbackContext obj) => OnReload?.Invoke(obj);
+            return Vector3.zero;
+        }
+
+        private void OnStartFire(InputAction.CallbackContext obj) => StartFireAction?.Invoke();
+        private void OnStopFire(InputAction.CallbackContext obj) => StopFireAction?.Invoke();
+        private void ReloadWeapon(InputAction.CallbackContext obj) => ReloadAction?.Invoke();
     }
 }
