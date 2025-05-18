@@ -4,7 +4,7 @@ using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.DataSaving;
 using Zenject;
 
-namespace Codebase.Infrastructure.Installers
+namespace Codebase.Infrastructure.Installers.Project
 {
     public class ServicesInstaller : MonoInstaller
     {

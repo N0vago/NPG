@@ -2,11 +2,15 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Codebase.Game.Weapon.WeaponMonoBehaviors
+namespace Codebase.Game.Weapon.WeaponSctipts
 {
-    public class Pistol : Weapon
+    public class Rifle : Weapon
     {
-        
+        private void Update()
+        {
+            Debug.DrawLine(muzzlePoint.position, AccuracyCorrection(weaponData.accuracy, PlayerController.MousePosition - muzzlePoint.position) * 100f, Color.red);
+        }
+
         protected override void CreateBullet()
         {
             if (CurrentAmmo <= 0)
@@ -18,13 +22,13 @@ namespace Codebase.Game.Weapon.WeaponMonoBehaviors
 
             CurrentAmmo--;
             Debug.Log($"Current ammo: {CurrentAmmo}");
-            
+
+
             Vector3 origin = muzzlePoint.position;
-            
             Vector3 newPos = AccuracyCorrection(weaponData.accuracy,
                 PlayerController.MousePosition - muzzlePoint.position);
-            bool hit = Physics.Raycast(origin,newPos , out RaycastHit hitInfo);
             
+            bool hit = Physics.Raycast(origin,newPos , out RaycastHit hitInfo);
             
             Debug.DrawLine(
                 origin, 
@@ -32,7 +36,6 @@ namespace Codebase.Game.Weapon.WeaponMonoBehaviors
                 Color.red,
                 1f
             );
-            
             if (hit)
             {
                 Debug.Log($"Hit: {hitInfo.collider.name}");
@@ -43,7 +46,5 @@ namespace Codebase.Game.Weapon.WeaponMonoBehaviors
                 }
             }
         }
-
-        
     }
 }

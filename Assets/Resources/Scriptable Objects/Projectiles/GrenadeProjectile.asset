@@ -15,7 +15,7 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  projectileSpeed: 10
+  projectileSpeed: 2
   projectileLifetime: 2
   explosionEffect: {fileID: 0}
   explosionRadius: 10

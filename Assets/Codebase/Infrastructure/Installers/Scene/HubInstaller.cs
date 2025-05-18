@@ -2,7 +2,7 @@
 using Codebase.Infrastructure.Services;
 using Zenject;
 
-namespace Codebase.Infrastructure.Installers
+namespace Codebase.Infrastructure.Installers.Scene
 {
     public class HubInstaller : MonoInstaller
     {

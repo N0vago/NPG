@@ -1,12 +1,11 @@
 ﻿using System;
-using Codebase.Game.Modules;
 using Codebase.Game.ScriptableObjects;
 using Codebase.Game.Weapon.Projectile;
 using Codebase.Infrastructure.Services.ObjectPooling;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Codebase.Game.Weapon.WeaponMonoBehaviors
+namespace Codebase.Game.Weapon.WeaponSctipts
 {
     public class GrenadeLauncher : Weapon
     {

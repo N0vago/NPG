@@ -4,7 +4,8 @@ using Codebase.Game.Player;
 using Codebase.Game.ScriptableObjects;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-
+using UnityEngine.Serialization;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Codebase.Game.Weapon
@@ -16,14 +17,15 @@ namespace Codebase.Game.Weapon
         [SerializeField] protected int reservedAmmo;
         
         protected int CurrentAmmo;
+
         protected PlayerController PlayerController;
-        
 
         private CancellationTokenSource _shootingCts;
-        
+
         public bool IsReloading { get; private set; }
 
         public bool IsShooting { get; private set; }
+        
 
         private void OnEnable()
         {

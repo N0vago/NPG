@@ -12,7 +12,7 @@ using PrefabProvider = Codebase.Infrastructure.Services.PrefabProviding.PrefabPr
 
 namespace Codebase.Infrastructure.Services
 {
-    public class HubInitializer : MonoBehaviour, IDataReader
+    public class HubInitializer : MonoBehaviour
     {
         [Tooltip("The addressable prefabs to instantiate" +
                  " in the hub. Note that order witch you add them" +
@@ -28,14 +28,11 @@ namespace Codebase.Infrastructure.Services
 
         private Vector3 _playerPosition = new();
 
-        [Inject]
-        public void Construct(ProgressDataHandler progressDataHandler)
+        private void Awake()
         {
-            _progressData = progressDataHandler;
-            _progressData.RegisterObserver(this);
             InitHub();
         }
-        
+
         private void InitHub()
         {
             for(int i = 0; i < hubPrefabs.Length; i++)
@@ -69,10 +66,6 @@ namespace Codebase.Infrastructure.Services
             {
                 Debug.LogError("CinemachineCamera or Target is not initialized properly.");
             }
-        }
-        public void Load(GameData data)
-        {
-            _playerPosition = data.playerData.playerPosition;
         }
     }
 }

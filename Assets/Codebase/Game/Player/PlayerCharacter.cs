@@ -30,7 +30,7 @@ namespace Codebase.Game.Player
 
         public void Load(GameData data)
         {
-            
+            transform.position = data.playerData.playerPosition;
         }
 
         public void Save(ref GameData data)

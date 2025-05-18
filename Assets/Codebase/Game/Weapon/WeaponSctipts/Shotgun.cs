@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Codebase.Game.Modules;
+﻿using Codebase.Game.Modules;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Codebase.Game.Weapon.WeaponMonoBehaviors
+namespace Codebase.Game.Weapon.WeaponSctipts
 {
     public class Shotgun : Weapon
     {
