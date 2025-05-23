@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c72e5dfc7814f648e0cf8303607d493, type: 3}
+  m_Name: HubObjects
+  m_EditorClassIdentifier: 
+  hubObjects:
+  - hubID: 1
+    prefab:
+      m_AssetGUID: f3910ac8307d2e84698d31db40ca71f1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - hubID: 2
+    prefab:
+      m_AssetGUID: d024d05d75920064a8466f614e3adc8f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
