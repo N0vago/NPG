@@ -25,3 +25,9 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - hubID: 3
+    prefab:
+      m_AssetGUID: 023e1f0c1963092419c58c6529e52032
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

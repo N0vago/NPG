@@ -1,8 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
-using NPG.Codebase.Game.Gameplay.UI.Root;
+﻿using NPG.Codebase.Game.Gameplay.UI.Root;
 using UnityEngine.AddressableAssets;
 using Zenject;
 using Object = UnityEngine.Object;
+using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Factories
 {
@@ -18,17 +18,17 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
             _container = container;
         }
 
-        public async UniTaskVoid CreateUIRoot(string addressableName)
+        public void CreateUIRoot(AssetReference uiRootReference)
         {
             DestroyUIRoot();
             
-            var prefab = Addressables.LoadAssetAsync<UIRootBinder>(addressableName);
-            await prefab.Task;
-            var instance = Object.Instantiate(prefab.Result);
+            var prefab = PrefabProvider.LoadPrefab(uiRootReference);
             
-            _container.Inject(instance);
+            var instance = _container.InstantiatePrefab(prefab);
+
+             _uiRootBinder = instance.GetComponent<UIRootBinder>();
             
-            instance.Bind(_uiRootViewModel);
+            _uiRootBinder.Bind(_uiRootViewModel);
         }
 
         public void DestroyUIRoot()
