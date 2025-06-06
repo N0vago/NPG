@@ -7,7 +7,6 @@ namespace NPG.Codebase.Infrastructure.Installers.Project
     {
         public override void InstallBindings()
         {
-            base.InstallBindings();
 
             Container.Bind<UIRootFactory>().FromNew().AsSingle();
 
