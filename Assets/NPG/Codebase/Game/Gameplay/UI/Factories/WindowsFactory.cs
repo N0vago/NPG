@@ -1,37 +1,57 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Game.Gameplay.UI.Windows;
-using UnityEngine.AddressableAssets;
+using UnityEngine;
+using Zenject;
 using Object = UnityEngine.Object;
+using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Factories
 {
     public class WindowsFactory
     {
-        private readonly UIRootBinder _uiRootBinder;
+        private DiContainer _container;
         
         private Dictionary<WindowViewModel, WindowBinder> _windows = new();
+        public Dictionary<WindowViewModel, WindowBinder> Windows => _windows;
         
-        public WindowsFactory(UIRootBinder uiRootBinder)
+        public WindowsFactory(DiContainer container)
         {
-            _uiRootBinder = uiRootBinder;
+            _container = container;
         }
-        public async UniTaskVoid OpenWindow(WindowViewModel window)
+        public async UniTaskVoid OpenWindow(WindowViewModel window, Transform parent)
         {
-            var prefab = Addressables.LoadAssetAsync<WindowBinder>(window.Id);
-            await prefab.Task;
-            var instance = Object.Instantiate(prefab.Result, _uiRootBinder.transform);
-            instance.Bind(window);
-            _windows.Add(window, instance);
+            if (_windows.ContainsKey(window))
+            {
+                Debug.LogWarning($"Window {window.Id} is already open.");
+                return;
+            }
+            
+            var asyncHandler = PrefabProvider.LoadPrefabAsync(window.Id);
+
+            var prefab = await asyncHandler;
+            
+            var instance = _container.InstantiatePrefab(prefab, parent);
+            
+            var binder = instance.GetComponent<WindowBinder>();
+            
+            binder.Bind(window);
+            
+            _windows.Add(window, binder);
         }
 
         public void CloseWindow(WindowViewModel window)
         {
-            var binder = _windows[window];
+            if (!_windows.TryGetValue(window, out var binder))
+            {
+                Debug.LogWarning($"Window {window.Id} is not open, cannot close it.");
+                return;
+            }
+
             binder?.Close();
             _windows.Remove(window);
         }
+        
     }
     
 }

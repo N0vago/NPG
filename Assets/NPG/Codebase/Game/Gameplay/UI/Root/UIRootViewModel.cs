@@ -12,7 +12,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
         
         public IObservableCollection<WindowViewModel> OpenedWindows => _openedWindows;
         
-        private readonly ReactiveProperty<ViewModel> _openedScreen;
+        private readonly ReactiveProperty<ViewModel> _openedScreen = new();
         private readonly ObservableList<WindowViewModel> _openedWindows = new();
         private readonly Dictionary<ViewModel, IDisposable> _viewModelSubscriptions = new();
 
@@ -35,12 +35,12 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
                 return;
             }
 
-            var subscription = window.CloseRequested.Subscribe(_ => CloseWindows(window));
+            var subscription = window.CloseRequested.Subscribe(_ => CloseWindow(window));
             _viewModelSubscriptions.Add(window, subscription);
             _openedWindows.Add(window);
         }
 
-        public void CloseWindows(WindowViewModel window)
+        public void CloseWindow(WindowViewModel window)
         {
             if (_openedWindows.Contains(window))
             {
@@ -56,7 +56,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
         {
             foreach (var window in _openedWindows)
             {
-                CloseWindows(window);
+                CloseWindow(window);
             }
         }
     }

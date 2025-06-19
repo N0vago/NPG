@@ -1,5 +1,5 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Root;
-using UnityEngine.AddressableAssets;
+using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
@@ -9,20 +9,22 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
     public class UIRootFactory
     {
         private UIRootBinder _uiRootBinder;
-        private UIRootViewModel _uiRootViewModel = new UIRootViewModel();
+        private UIRootViewModel _uiRootViewModel;
 
         private DiContainer _container;
-
-        public UIRootFactory(DiContainer container)
+        
+        public UIRootFactory(DiContainer container, UIRootViewModel uiRootViewModel)
         {
             _container = container;
+            
+            _uiRootViewModel = uiRootViewModel;
         }
 
-        public void CreateUIRoot(AssetReference uiRootReference)
+        public void CreateUIRoot(string uiRootAddressableName)
         {
             DestroyUIRoot();
             
-            var prefab = PrefabProvider.LoadPrefab(uiRootReference);
+            var prefab = PrefabProvider.LoadPrefab(uiRootAddressableName);
             
             var instance = _container.InstantiatePrefab(prefab);
 

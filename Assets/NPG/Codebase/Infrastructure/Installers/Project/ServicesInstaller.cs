@@ -17,6 +17,8 @@ namespace NPG.Codebase.Infrastructure.Installers.Project
             Container.Bind<SceneLoader>().FromNew().AsSingle();
 
             Container.Bind<ProgressDataHandler>().FromNew().AsSingle();
+
+            Container.Bind<InputActions>().FromNew().AsSingle();
         }
     }
 }

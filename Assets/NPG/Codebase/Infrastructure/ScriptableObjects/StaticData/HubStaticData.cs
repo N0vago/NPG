@@ -7,7 +7,7 @@ namespace NPG.Codebase.Infrastructure.ScriptableObjects.StaticData
     public class HubStaticData
     {
         public HubIDs hubID;
-        public AssetReference prefab;
+        public string addressableName;
     }
 
     public enum HubIDs
@@ -15,6 +15,7 @@ namespace NPG.Codebase.Infrastructure.ScriptableObjects.StaticData
         Unknown,
         Player,
         CinemachineCamera,
-        Camera
+        Camera,
+        UIRoot
     }
 }

@@ -22,24 +22,26 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
         
         public void Bind(UIRootViewModel viewModel)
         {
-            _subscriptions.Add(viewModel.OpenedScreen.Subscribe(viewModel.OpenScreen));
+            _viewModel = viewModel;
+            
+            _subscriptions.Add(_viewModel.OpenedScreen.Subscribe(_viewModel.OpenScreen));
 
-            foreach (var openedWindow in viewModel.OpenedWindows)
+            foreach (var openedWindow in _viewModel.OpenedWindows)
             {
-                _ = _windowsFactory.OpenWindow(openedWindow);
+                _ = _windowsFactory.OpenWindow(openedWindow, transform);
             }
             
-            _subscriptions.Add(viewModel.OpenedWindows.ObserveAdd().Subscribe(e =>
+            _subscriptions.Add(_viewModel.OpenedWindows.ObserveAdd().Subscribe(e =>
             {
-                _ = _windowsFactory.OpenWindow(e.Value);
+                _ = _windowsFactory.OpenWindow(e.Value, transform);
             }));
 
-            _subscriptions.Add(viewModel.OpenedWindows.ObserveRemove().Subscribe(e =>
+            _subscriptions.Add(_viewModel.OpenedWindows.ObserveRemove().Subscribe(e =>
             {
                 _windowsFactory.CloseWindow(e.Value);
             }));
             
-            OnBind(viewModel);
+            OnBind(_viewModel);
         }
 
         private void OnBind(UIRootViewModel viewModel)

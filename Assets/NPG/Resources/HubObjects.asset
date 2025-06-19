@@ -14,20 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hubObjects:
   - hubID: 1
-    prefab:
-      m_AssetGUID: f3910ac8307d2e84698d31db40ca71f1
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
+    addressableName: MainCharacter
   - hubID: 2
-    prefab:
-      m_AssetGUID: d024d05d75920064a8466f614e3adc8f
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
+    addressableName: CinemachineCamera
   - hubID: 3
-    prefab:
-      m_AssetGUID: 023e1f0c1963092419c58c6529e52032
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
+    addressableName: MainCamera
+  - hubID: 4
+    addressableName: UIRoot

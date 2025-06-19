@@ -6,8 +6,6 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows
     {
         public void Close()
         {
-            ViewModel.RequestClose();
-            ViewModel.Dispose();
             Destroy(gameObject);
         }
     }

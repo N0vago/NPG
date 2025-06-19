@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace NPG.Codebase.Game.Gameplay.Player
 {
@@ -28,9 +29,10 @@ namespace NPG.Codebase.Game.Gameplay.Player
         public event Action StopFireAction;
         public event Action ReloadAction;
 
-        private void Awake()
+        [Inject]
+        public void Construct(InputActions inputActions)
         {
-            _inputActions = new InputActions();
+            _inputActions = inputActions;
         }
 
         private void OnEnable()

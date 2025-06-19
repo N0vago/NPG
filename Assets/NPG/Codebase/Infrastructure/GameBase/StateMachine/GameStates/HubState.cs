@@ -1,4 +1,6 @@
 ﻿using NPG.Codebase.Game.Gameplay.Player;
+using NPG.Codebase.Game.Gameplay.UI.Factories;
+using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
 using Unity.Cinemachine;
@@ -40,19 +42,23 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
                 switch (hubObject.hubID)
                 {
                     case HubIDs.Player:
-                        prefab = PrefabProvider.LoadPrefab(hubObject.prefab);
+                        prefab = PrefabProvider.LoadPrefab(hubObject.addressableName);
                         instance = _container.InstantiatePrefab(prefab);
                         _playerController = instance.GetComponent<PlayerController>();
                         break;
                     case HubIDs.Camera:
-                        prefab = PrefabProvider.LoadPrefab(hubObject.prefab);
+                        prefab = PrefabProvider.LoadPrefab(hubObject.addressableName);
                         instance = Object.Instantiate(prefab);
                         break;
                     case HubIDs.CinemachineCamera:
-                        prefab = PrefabProvider.LoadPrefab(hubObject.prefab);
+                        prefab = PrefabProvider.LoadPrefab(hubObject.addressableName);
                         instance = Object.Instantiate(prefab);
                         _cinemachineCamera = instance.GetComponent<CinemachineCamera>();
                         _cinemachineCamera.Target.TrackingTarget = _playerController.gameObject.transform;
+                        break;
+                    case HubIDs.UIRoot:
+                        var uiRootFactory = _container.Resolve<UIRootFactory>();
+                        uiRootFactory.CreateUIRoot(hubObject.addressableName);
                         break;
                 }
             }

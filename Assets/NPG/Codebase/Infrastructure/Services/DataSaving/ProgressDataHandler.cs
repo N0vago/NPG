@@ -34,8 +34,6 @@ namespace NPG.Codebase.Infrastructure.Services.DataSaving
 
                 string json = JsonUtility.ToJson(_gameData, true);
                 File.WriteAllText(DataPath, json);
-                AssetDatabase.Refresh();
-
             }
             else
             {
