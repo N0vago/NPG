@@ -1,6 +1,5 @@
 ﻿using NPG.Codebase.Game.Gameplay.Player;
 using NPG.Codebase.Game.Gameplay.UI.Factories;
-using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
 using Unity.Cinemachine;

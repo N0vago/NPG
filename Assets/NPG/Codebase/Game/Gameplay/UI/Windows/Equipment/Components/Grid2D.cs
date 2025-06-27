@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components
@@ -161,7 +160,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components
                     }
                 }
             }
-            return new Vector2Int(-1, -1); // Not found
+            return new Vector2Int(-1, -1);
         }
         
         public T GetValue(T value)

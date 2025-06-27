@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using NPG.Codebase.Game.Gameplay.UI.Windows;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Factories
@@ -51,7 +50,6 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
             binder?.Close();
             _windows.Remove(window);
         }
-        
     }
     
 }

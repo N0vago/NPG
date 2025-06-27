@@ -1,55 +1,90 @@
 ﻿using System.Collections.Generic;
-using ModestTree;
 using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
-using NPG.Codebase.Infrastructure.Extensions;
+using NPG.Codebase.Infrastructure.Factories;
 using ObservableCollections;
 using R3;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item
 {
     public class ItemContainerBinder : Binder<ItemContainerViewModel>
     {
-        [SerializeField] private SlotContainerBinder relevantSlotContainerBinder;
         [SerializeField] private RectTransform containerRectTransform;
+        [SerializeField] private SlotContainerBinder relevantSlotContainerBinder;
         
+        private EquipmentWindowBinder _equipmentWindowBinder;
+        
+        private readonly Dictionary<ItemViewModel, CompositeDisposable> _itemDisposables = new();
         private CompositeDisposable _disposable = new();
         
         private ItemFactory _itemFactory;
+        
+        public RectTransform ContainerRectTransform => containerRectTransform;
+        public SlotContainerBinder RelevantSlotContainerBinder => relevantSlotContainerBinder;
         
         [Inject]
         public void Construct(ItemFactory itemFactory)
         {
             _itemFactory = itemFactory;
-            
-        }
-
-        private void OnDestroy()
-        {
-            _disposable.Dispose();
         }
 
         protected override void OnBind(ItemContainerViewModel viewModel)
         {
             base.OnBind(viewModel);
-            if (ViewModel == null)
+            _disposable.Add(ViewModel.Items.ObserveAdd().Subscribe(item =>
             {
-                Debug.LogError("ViewModel is null in ItemContainerBinder.OnBind.");
-                return;
-            }
+                if (_itemDisposables.TryGetValue(item.Value, out var disposable))
+                {
+                    disposable.Dispose();
+                    _itemDisposables.Remove(item.Value);
+                }
+                
+                var itemDisposable = new CompositeDisposable();
+                _itemDisposables[item.Value] = itemDisposable;
+                
+                item.Value.Slots.ObserveAdd()
+                    .Subscribe(entry =>
+                    {
+                        _equipmentWindowBinder.ApplyNewPlacementInContainer(item.Value, entry.Value.Key, entry.Value.Value);
+                    })
+                    .AddTo(itemDisposable);
 
-            if (ViewModel.Items == null)
+                item.Value.Slots.ObserveRemove()
+                    .Subscribe(entry =>
+                    {
+                        _equipmentWindowBinder.ClearPreviousPlacementInContainer(item.Value, entry.Value.Key);
+                    })
+                    .AddTo(itemDisposable);
+                
+                if (Registry.GetBinder(item.Value) == null)
+                    InitItem(item.Value);
+            }));
+
+            _disposable.Add(ViewModel.Items.ObserveRemove().Subscribe(item =>
             {
-                Debug.LogError("ViewModel.Items is null in ItemContainerBinder.OnBind.");
-                return;
-            }
-            _disposable.Add(ViewModel.Items.ObserveAdd().Subscribe(item => AddItem(item.Value)));
+                RemoveItem(item.Value);
+            }));
             
-            _disposable.Add(ViewModel.Items.ObserveRemove().Subscribe(item => RemoveItem(item.Value)));
         }
+
+        private void Awake()
+        {
+            _equipmentWindowBinder = GetComponentInParent<EquipmentWindowBinder>();
+        }
+
+        private void OnDestroy()
+        {
+            _disposable.Dispose();
+            foreach (var itemDisposable in _itemDisposables.Values)
+            {
+                itemDisposable.Dispose();
+            }
+            _itemDisposables.Clear();
+            
+        }
+
 
         private void RemoveItem(ItemViewModel item)
         {
@@ -62,182 +97,25 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item
             }
         }
 
-        private void AddItem(ItemViewModel item)
+        private void InitItem(ItemViewModel item)
         {
             _itemFactory.CreateItem(item, containerRectTransform);
-            
-            _disposable.Add(item.SelectedSlots.Subscribe(slots => ReplaceItem(item, slots)));
-            
-            ItemBinder itemBinder = _itemFactory.Items[item];
-            
-            int itemRows = itemBinder.ItemRow;
-            int itemCols = itemBinder.ItemColumn;
 
-            var slotsGrid = ViewModel.SlotContainer.SlotsGrid.CurrentValue;
-            int gridRows = slotsGrid.Rows;
-            int gridCols = slotsGrid.Columns;
-            
-            for (int row = 0; row <= gridRows - itemRows; row++)
+            int itemRows = item.ItemRows;
+            int itemCols = item.ItemColumns;
+
+            if (ViewModel.SlotContainer.TryFindFreeSpaceForItem(itemRows, itemCols, out var slots, out var row, out var col))
             {
-                for (int col = 0; col <= gridCols - itemCols; col++)
+                foreach (var slot in slots)
                 {
-                    bool fits = true;
-                    List<InventorySlotViewModel> candidateSlots = new();
-
-                    for (int i = 0; i < itemRows; i++)
-                    {
-                        for (int j = 0; j < itemCols; j++)
-                        {
-                            var slot = slotsGrid[row + i, col + j];
-                            if (!slot.IsAvailable)
-                            {
-                                fits = false;
-                                break;
-                            }
-
-                            candidateSlots.Add(slot);
-                        }
-
-                        if (!fits) break;
-                    }
-
-                    if (fits)
-                    {
-                        foreach (var slot in candidateSlots)
-                        {
-                            slot.LockSlot(item);
-                            Debug.Log($"Slot anchor position x: {slot.SlotRectTransform.anchoredPosition.x}, y: {slot.SlotRectTransform.anchoredPosition.y}");
-                            
-                        }
-                        
-                        PlaceItemInGrid(itemBinder, row, col, relevantSlotContainerBinder.GridLayoutGroup);
-                        return;
-                    }
+                    Debug.Log($"Locking slot {slot.SlotID} for item {item.ItemID}");
+                    slot.LockSlot(item);
                 }
+
+                item.SetItemHolders(ViewModel, slots);
+                relevantSlotContainerBinder.PlaceItemInGrid(item, row, col);
             }
-
-            Debug.LogWarning("Нет подходящих слотов для предмета " + itemBinder.gameObject.name);
-
         }
-
-        private void ReplaceItem(ItemViewModel itemViewModel, List<InventorySlotBinder> slotBinders)
-        {
-            ItemBinder itemBinder = _itemFactory.Items[itemViewModel];
-            
-            List<InventorySlotViewModel> occupiedSlots = ViewModel.SlotContainer.GetOccupiedSlotsForItem(itemViewModel);
-            
-            foreach (var slot in occupiedSlots)
-                slot.UnlockSlot(itemViewModel);
-
-            // Если не выбрано слотов — возвращаем предмет на старое место
-            if (slotBinders == null || slotBinders.Count == 0)
-            {
-                Vector2Int itemIndex = ViewModel.SlotContainer.SlotsGrid.CurrentValue.GetIndexOf(occupiedSlots[0]);
-                PlaceItemInGrid(itemBinder, itemIndex.x, itemIndex.y, relevantSlotContainerBinder.GridLayoutGroup);
-                foreach (var slot in occupiedSlots)
-                    slot.LockSlot(itemViewModel);
-                return;
-            }
-
-            // Получаем SlotViewModel'ы
-            List<InventorySlotViewModel> selectedSlots = new();
-            foreach (var slotBinder in slotBinders)
-            {
-                if (relevantSlotContainerBinder.SlotFactory.Slots.TryGetKeyByValue(slotBinder, out var slotViewModel))
-                    selectedSlots.Add(slotViewModel);
-            }
-
-            // Проверка валидности слотов
-            int itemRows = itemBinder.ItemRow;
-            int itemCols = itemBinder.ItemColumn;
-
-            var grid = ViewModel.SlotContainer.SlotsGrid.CurrentValue;
-
-            Vector2Int? topLeft = TryGetTopLeftSlot(selectedSlots, grid, itemRows, itemCols);
-            if (topLeft == null)
-            {
-                Vector2Int fallback = ViewModel.SlotContainer.SlotsGrid.CurrentValue.GetIndexOf(occupiedSlots[0]);
-                PlaceItemInGrid(itemBinder, fallback.x, fallback.y, relevantSlotContainerBinder.GridLayoutGroup);
-                foreach (var slot in occupiedSlots)
-                    slot.LockSlot(itemViewModel);
-                return;
-            }
-            
-            for (int i = 0; i < itemRows; i++)
-            {
-                for (int j = 0; j < itemCols; j++)
-                {
-                    var slot = grid[topLeft.Value.x + i, topLeft.Value.y + j];
-                    slot.LockSlot(itemViewModel);
-                }
-            }
-            
-            PlaceItemInGrid(itemBinder, topLeft.Value.x, topLeft.Value.y, relevantSlotContainerBinder.GridLayoutGroup);
-                    
-        }
-
-        private void PlaceItemInGrid(ItemBinder itemBinder, int startRow, int startCol, GridLayoutGroup gridLayoutGroup)
-        {
-            int itemRows = itemBinder.ItemRow;
-            int itemCols = itemBinder.ItemColumn;
-
-            Vector2 position = CalculateItemCenterPosition(startRow, startCol,itemRows, itemCols, gridLayoutGroup);
-            
-            itemBinder.AttachItemToPosition(position);
-        }
-
-        private Vector2 CalculateItemCenterPosition(int startRow, int startCol, int itemRows, int itemCols, GridLayoutGroup grid)
-        {
-            var cellSize = grid.cellSize;
-            var spacing = grid.spacing;
-            var padding = grid.padding;
-
-            
-            float leftX = padding.left + startCol * (cellSize.x + spacing.x);
-            float topY = padding.top + startRow * (cellSize.y + spacing.y);
-
-            
-            float rightX = leftX + itemCols * cellSize.x + (itemCols - 1) * spacing.x;
-            float bottomY = topY + itemRows * cellSize.y + (itemRows - 1) * spacing.y;
-
-            
-            float centerX = (leftX + rightX) / 2f;
-            float centerY = (topY + bottomY) / 2f;
-
-            return new Vector2(centerX, -centerY);
-        }
-        
-        private Vector2Int? TryGetTopLeftSlot(List<InventorySlotViewModel> selectedSlots, Grid2D<InventorySlotViewModel> grid, int itemRows, int itemCols)
-        {
-            for (int row = 0; row <= grid.Rows - itemRows; row++)
-            {
-                for (int col = 0; col <= grid.Columns - itemCols; col++)
-                {
-                    bool fits = true;
-
-                    for (int i = 0; i < itemRows; i++)
-                    {
-                        for (int j = 0; j < itemCols; j++)
-                        {
-                            var slot = grid[row + i, col + j];
-                            if (!selectedSlots.Contains(slot) || !slot.IsAvailable)
-                            {
-                                fits = false;
-                                break;
-                            }
-                        }
-                        if (!fits) break;
-                    }
-
-                    if (fits)
-                        return new Vector2Int(row, col);
-                }
-            }
-
-            return null;
-        }
-
-
         
     }
 }

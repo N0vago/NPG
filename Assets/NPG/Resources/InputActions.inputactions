@@ -60,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Select Weapot",
-                    "type": "Button",
-                    "id": "014dbc5b-1283-484a-8fab-ede2c2995e03",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Previous",
                     "type": "Button",
                     "id": "2776c80d-3c14-4091-8c56-d04ced07a2b0",
@@ -211,50 +202,6 @@
                 },
                 {
                     "name": "",
-                    "id": "7303af19-a7cb-479c-83ae-f5697a19496b",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Select Weapot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "43791749-c4db-49b0-afbd-693e365b0ddc",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select Weapot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8c06bebb-d6a4-4851-ae01-64455db06dd0",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select Weapot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b8831b09-92aa-4cb5-8bf5-a9e588af585c",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Select Weapot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c287b0bb-163b-4b12-9454-fa72d5cdf448",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -319,6 +266,15 @@
                     "name": "Right Click",
                     "type": "Button",
                     "id": "2cba7411-7116-48c7-bacf-b190c14d329b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select Weapot",
+                    "type": "Button",
+                    "id": "7a64285b-4848-4a9b-bd47-42bd25f6080b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -389,6 +345,61 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Right Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a451084a-0760-4833-b87f-a5b8d2fa91bc",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Select Weapot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "727eb6f4-5e3a-4f06-b600-77c8c8add86b",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Select Weapot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "838322db-d86b-46cf-8fa2-eeae3b8d9bad",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Select Weapot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6760e428-76b0-44fb-ab7e-a44c44987d6e",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Select Weapot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3e41995-75db-4f2c-b20d-afbc133fcb51",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Select Weapot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

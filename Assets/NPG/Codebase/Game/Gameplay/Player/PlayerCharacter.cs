@@ -9,7 +9,9 @@ namespace NPG.Codebase.Game.Gameplay.Player
     [RequireComponent(typeof(PlayerController))]
     public class PlayerCharacter : MonoBehaviour, IDataWriter
     {
-        private IWeapon _currentWeapon;
+        [SerializeField] private GameObject weaponHolder;
+        
+        private WeaponBase _currentWeapon;
         
         private PlayerController _playerController;
         private ProgressDataHandler _progressDataHandler;
@@ -22,21 +24,35 @@ namespace NPG.Codebase.Game.Gameplay.Player
             _progressDataHandler.RegisterObserver(this);
         }
 
-        public void SetWeapon(IWeapon weapon)
+        public void SetWeapon(WeaponBase weapon)
         {
-            _currentWeapon = weapon;
+            
+            //Rework this in future
+            if (_currentWeapon != null)
+            {
+                Destroy(_currentWeapon.gameObject);
+            }
+            var instance = Instantiate(weapon, weaponHolder.transform);
+            _currentWeapon = instance;
+            _currentWeapon.SetController(_playerController);
         }
 
         public void Load(GameData data)
         {
-            transform.position = data.playerData.playerPosition;
+           Vector3 position = new Vector3(
+                data.playerData.xPos,
+                data.playerData.yPos,
+                data.playerData.zPos
+            );
+           
+           transform.position = position;
         }
 
         public void Save(ref GameData data)
         {
-            data.playerData.playerPosition.x = Mathf.Round(gameObject.transform.position.x);
-            data.playerData.playerPosition.y = Mathf.Round(gameObject.transform.position.y);
-            data.playerData.playerPosition.z = Mathf.Round(gameObject.transform.position.z);
+            data.playerData.xPos = Mathf.Round(gameObject.transform.position.x);
+            data.playerData.yPos = Mathf.Round(gameObject.transform.position.y);
+            data.playerData.zPos = Mathf.Round(gameObject.transform.position.z);
         }
         private void Awake()
         {
@@ -45,20 +61,30 @@ namespace NPG.Codebase.Game.Gameplay.Player
 
         private void OnEnable()
         {
-            _playerController.StartFireAction += () => _currentWeapon.PullTrigger();
-            _playerController.StopFireAction += () => _currentWeapon.ReleaseTrigger();
-            _playerController.ReloadAction += () => _currentWeapon.Reload();
-        }
-        
-
-        private void OnDisable()
-        {
-            _progressDataHandler.SaveProgress(this);
-        }
-
-        private void Start()
-        {
-            SetWeapon(GetComponentInChildren<WeaponBase>());
+            _playerController.StartFireAction += () =>
+            {
+                if (_currentWeapon == null)
+                {
+                    return;
+                }
+                _ = _currentWeapon.PullTrigger();
+            };
+            _playerController.StopFireAction += () =>
+            {
+                if (_currentWeapon == null)
+                {
+                    return;
+                }
+                _currentWeapon.ReleaseTrigger();
+            };
+            _playerController.ReloadAction += () =>
+            {
+                if (_currentWeapon == null)
+                {
+                    return;
+                }
+                _ = _currentWeapon.Reload();
+            };
         }
     }
 }

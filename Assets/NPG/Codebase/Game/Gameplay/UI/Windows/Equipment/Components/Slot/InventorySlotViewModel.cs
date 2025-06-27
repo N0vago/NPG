@@ -1,20 +1,20 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
 using R3;
-using UnityEngine;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot
 {
     public class InventorySlotViewModel : ViewModel
     {
-        private readonly ReactiveProperty<ItemViewModel> _item = new();
         
+        private readonly ReactiveProperty<ItemViewModel> _item = new();
         public bool IsAvailable => _item.Value == null;
+        public virtual string SlotID { get; private set; }
         public ReadOnlyReactiveProperty<ItemViewModel> Item => _item;
-        public RectTransform SlotRectTransform { get; set; }
-        public InventorySlotViewModel()
+
+        public InventorySlotViewModel(string slotID)
         {
-            Debug.Log("InventorySlotViewModel initialized with default values.");
+            SlotID = slotID;
         }
         public void LockSlot(ItemViewModel item)
         {
@@ -31,7 +31,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot
         public override void Dispose()
         {
             base.Dispose();
-
+            _item.Dispose();
         }
+        
     }
 }

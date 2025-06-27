@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using NPG.Codebase.Infrastructure.JsonData;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 namespace NPG.Codebase.Infrastructure.Services.DataSaving
@@ -13,7 +12,9 @@ namespace NPG.Codebase.Infrastructure.Services.DataSaving
         
         private readonly List<IDataReader> _dataOperators = new();
 
-        private const string DataPath = "Assets/Resources/Data/GameProgressData.json";
+        private const string DataPath = "Assets/NPG/Resources/ProgressData/GameProgressData.json";
+        private const string ResourcesPath = "ProgressData/GameProgressData";
+        private const string InitialConfigPath = "ProgressData/InitialConfiguration";
 
         public ProgressDataHandler()
         {
@@ -22,23 +23,39 @@ namespace NPG.Codebase.Infrastructure.Services.DataSaving
 
         public void RegisterObserver(IDataReader dataOperator)
         {
+            if (_dataOperators.Contains(dataOperator))
+            {
+                Debug.LogError("Data operator already registered");
+                return;
+            }
             _dataOperators.Add(dataOperator);
             dataOperator.Load(_gameData);
         }
-
-        public void SaveProgress(IDataWriter dataOperator)
+        public void UnregisterObserver(IDataReader dataOperator)
         {
             if (_dataOperators.Contains(dataOperator))
             {
-                dataOperator.Save(ref _gameData);
-
-                string json = JsonUtility.ToJson(_gameData, true);
-                File.WriteAllText(DataPath, json);
+                _dataOperators.Remove(dataOperator);
             }
             else
             {
                 Debug.LogError("Data operator doesn't register or not exist");
             }
+        }
+
+        public void SaveProgress(IDataWriter dataOperator)
+        {
+            if (!_dataOperators.Contains(dataOperator))
+            {
+                Debug.LogError("Data operator doesn't register or not exist");
+                return;
+            }
+
+            dataOperator.Save(ref _gameData);
+
+            string json = JsonConvert.SerializeObject(_gameData, Formatting.Indented);
+            File.WriteAllText(DataPath, json);
+            
         }
 
         public void LoadAll()
@@ -54,6 +71,7 @@ namespace NPG.Codebase.Infrastructure.Services.DataSaving
             for (int i = 0; i < _dataOperators.Count; i++)
             {
                 if (_dataOperators[i] is IDataWriter dataWriter){
+                    Debug.Log($"Saving data for: {_dataOperators[i].GetType().Name}");
                     SaveProgress(dataWriter);
                 }
             }
@@ -61,22 +79,27 @@ namespace NPG.Codebase.Infrastructure.Services.DataSaving
 
         private GameData GatherGameData()
         {
-            TextAsset json = Resources.Load<TextAsset>("Data/GameProgressData");
-            if (json.IsUnityNull())
+            TextAsset jsonAsset = Resources.Load<TextAsset>(ResourcesPath);
+            if (jsonAsset == null)
             {
-                json = GetInitialConfiguration();
+                jsonAsset = GetInitialConfiguration();
             }
 
-            var data = _gameData.IsUnityNull() ? JsonUtility.FromJson<GameData>(json.text) : _gameData;
-            
+            var data = _gameData ?? JsonConvert.DeserializeObject<GameData>(jsonAsset.text);
+
             return data;
         }
 
         private TextAsset GetInitialConfiguration()
         {
-            FileStream file = File.Create(DataPath);
-            TextAsset initialConfig = Resources.Load<TextAsset>("Data/InitialConfiguration");
-            file.Write(initialConfig.bytes);
+            TextAsset initialConfig = Resources.Load<TextAsset>(InitialConfigPath);
+            if (initialConfig == null)
+            {
+                Debug.LogError("InitialConfiguration not found in Resources.");
+                return null;
+            }
+
+            File.WriteAllText(DataPath, initialConfig.text);
 
             return initialConfig;
         }

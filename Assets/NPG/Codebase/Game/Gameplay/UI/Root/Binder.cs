@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using NPG.Codebase.Infrastructure.BindingRegistration;
+using UnityEngine;
+using Zenject;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Root
 {
@@ -6,10 +8,17 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
     {
         protected T ViewModel;
         
+        protected IBinderRegistry Registry;
+        
+        [Inject]
+        protected virtual void Construct(IBinderRegistry registry)
+        {
+            Registry = registry;
+        }
         public void Bind(T viewModel)
         {
             ViewModel = viewModel;
-            
+            Registry.Register(viewModel, this);
             OnBind(viewModel);
         }
         

@@ -1,0 +1,39 @@
+{
+  "playerData": {
+    "xPos": -34.0,
+    "yPos": 1.0,
+    "zPos": 21.0
+  },
+  "inventoryItemData": [
+    {
+      "ItemIDs": [
+        "PistolItem"
+      ],
+      "ContainerID": "PistolContainer"
+    },
+    {
+      "ItemIDs": [
+        "ShotgunItem"
+      ],
+      "ContainerID": "ShotgunContainer"
+    },
+    {
+      "ItemIDs": [
+        "RifleItem"
+      ],
+      "ContainerID": "RifleContainer"
+    },
+    {
+      "ItemIDs": [
+        "GrenadeLauncherItem"
+      ],
+      "ContainerID": "GrenadeLauncherContainer"
+    },
+    {
+      "ItemIDs": [
+        "FlamethrowerItem"
+      ],
+      "ContainerID": "EnergyGunContainer"
+    }
+  ]
+}

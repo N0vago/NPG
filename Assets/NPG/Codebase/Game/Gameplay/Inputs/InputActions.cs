@@ -82,15 +82,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Select Weapot"",
-                    ""type"": ""Button"",
-                    ""id"": ""014dbc5b-1283-484a-8fab-ede2c2995e03"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Previous"",
                     ""type"": ""Button"",
                     ""id"": ""2776c80d-3c14-4091-8c56-d04ced07a2b0"",
@@ -233,50 +224,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7303af19-a7cb-479c-83ae-f5697a19496b"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Select Weapot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""43791749-c4db-49b0-afbd-693e365b0ddc"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Select Weapot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8c06bebb-d6a4-4851-ae01-64455db06dd0"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Select Weapot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b8831b09-92aa-4cb5-8bf5-a9e588af585c"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Select Weapot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c287b0bb-163b-4b12-9454-fa72d5cdf448"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -341,6 +288,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Right Click"",
                     ""type"": ""Button"",
                     ""id"": ""2cba7411-7116-48c7-bacf-b190c14d329b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select Weapot"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a64285b-4848-4a9b-bd47-42bd25f6080b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -411,6 +367,61 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Right Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a451084a-0760-4833-b87f-a5b8d2fa91bc"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Select Weapot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""727eb6f4-5e3a-4f06-b600-77c8c8add86b"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Select Weapot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""838322db-d86b-46cf-8fa2-eeae3b8d9bad"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Select Weapot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6760e428-76b0-44fb-ab7e-a44c44987d6e"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Select Weapot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3e41995-75db-4f2c-b20d-afbc133fcb51"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Select Weapot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -488,7 +499,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
-        m_Player_SelectWeapot = m_Player.FindAction("Select Weapot", throwIfNotFound: true);
         m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         // UI
@@ -499,6 +509,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_UI_Scroll = m_UI.FindAction("Scroll", throwIfNotFound: true);
         m_UI_MiddleClick = m_UI.FindAction("Middle Click", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("Right Click", throwIfNotFound: true);
+        m_UI_SelectWeapot = m_UI.FindAction("Select Weapot", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -572,7 +583,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Flashlight;
-    private readonly InputAction m_Player_SelectWeapot;
     private readonly InputAction m_Player_Previous;
     private readonly InputAction m_Player_Next;
     public struct PlayerActions
@@ -585,7 +595,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
-        public InputAction @SelectWeapot => m_Wrapper.m_Player_SelectWeapot;
         public InputAction @Previous => m_Wrapper.m_Player_Previous;
         public InputAction @Next => m_Wrapper.m_Player_Next;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -615,9 +624,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Flashlight.started += instance.OnFlashlight;
             @Flashlight.performed += instance.OnFlashlight;
             @Flashlight.canceled += instance.OnFlashlight;
-            @SelectWeapot.started += instance.OnSelectWeapot;
-            @SelectWeapot.performed += instance.OnSelectWeapot;
-            @SelectWeapot.canceled += instance.OnSelectWeapot;
             @Previous.started += instance.OnPrevious;
             @Previous.performed += instance.OnPrevious;
             @Previous.canceled += instance.OnPrevious;
@@ -646,9 +652,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Flashlight.started -= instance.OnFlashlight;
             @Flashlight.performed -= instance.OnFlashlight;
             @Flashlight.canceled -= instance.OnFlashlight;
-            @SelectWeapot.started -= instance.OnSelectWeapot;
-            @SelectWeapot.performed -= instance.OnSelectWeapot;
-            @SelectWeapot.canceled -= instance.OnSelectWeapot;
             @Previous.started -= instance.OnPrevious;
             @Previous.performed -= instance.OnPrevious;
             @Previous.canceled -= instance.OnPrevious;
@@ -682,6 +685,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Scroll;
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
+    private readonly InputAction m_UI_SelectWeapot;
     public struct UIActions
     {
         private @InputActions m_Wrapper;
@@ -692,6 +696,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Scroll => m_Wrapper.m_UI_Scroll;
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
+        public InputAction @SelectWeapot => m_Wrapper.m_UI_SelectWeapot;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -719,6 +724,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @RightClick.started += instance.OnRightClick;
             @RightClick.performed += instance.OnRightClick;
             @RightClick.canceled += instance.OnRightClick;
+            @SelectWeapot.started += instance.OnSelectWeapot;
+            @SelectWeapot.performed += instance.OnSelectWeapot;
+            @SelectWeapot.canceled += instance.OnSelectWeapot;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -741,6 +749,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @RightClick.started -= instance.OnRightClick;
             @RightClick.performed -= instance.OnRightClick;
             @RightClick.canceled -= instance.OnRightClick;
+            @SelectWeapot.started -= instance.OnSelectWeapot;
+            @SelectWeapot.performed -= instance.OnSelectWeapot;
+            @SelectWeapot.canceled -= instance.OnSelectWeapot;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -811,7 +822,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
-        void OnSelectWeapot(InputAction.CallbackContext context);
         void OnPrevious(InputAction.CallbackContext context);
         void OnNext(InputAction.CallbackContext context);
     }
@@ -823,5 +833,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnScroll(InputAction.CallbackContext context);
         void OnMiddleClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
+        void OnSelectWeapot(InputAction.CallbackContext context);
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
-using UnityEngine;
 
 namespace NPG.Codebase.Infrastructure.JsonData
 {
     [Serializable]
     public class PlayerData
     {
-        public Vector3 playerPosition;
+        public float xPos;
+        public float yPos;
+        public float zPos;
     }
 }

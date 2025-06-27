@@ -1,5 +1,5 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Factories;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
+using NPG.Codebase.Infrastructure.Factories;
 using Zenject;
 
 namespace NPG.Codebase.Infrastructure.Installers.Project

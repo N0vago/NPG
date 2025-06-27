@@ -1,4 +1,6 @@
-﻿using NPG.Codebase.Infrastructure.GameBase.StateMachine;
+﻿using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
+using NPG.Codebase.Infrastructure.BindingRegistration;
+using NPG.Codebase.Infrastructure.GameBase.StateMachine;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
 using NPG.Codebase.Infrastructure.Services;
 using NPG.Codebase.Infrastructure.Services.DataSaving;
@@ -19,6 +21,10 @@ namespace NPG.Codebase.Infrastructure.Installers.Project
             Container.Bind<ProgressDataHandler>().FromNew().AsSingle();
 
             Container.Bind<InputActions>().FromNew().AsSingle();
+
+            Container.Bind<IBinderRegistry>().To<BinderRegistry>().FromNew().AsSingle();
+            
+            Container.Bind<ItemDataBase>().FromScriptableObjectResource("InGameData/ItemDataBase").AsSingle();
         }
     }
 }

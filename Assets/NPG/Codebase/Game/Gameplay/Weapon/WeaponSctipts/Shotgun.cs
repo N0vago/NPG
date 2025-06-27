@@ -23,6 +23,11 @@ namespace NPG.Codebase.Game.Gameplay.Weapon.WeaponSctipts
             
             for (int i = 0; i <= BuckshotCount; i++)
             {
+                if(PlayerController == null)
+                {
+                    Debug.LogWarning("PlayerController is not set. Cannot calculate mouse position.");
+                    return;
+                }
                 Vector3 toMousePos = PlayerController.MousePosition - muzzlePoint.position;
                 Vector2 pos = CalculateBuckshotPos(weaponData.accuracy);
                 Vector3 newPos = new Vector3(toMousePos.x + pos.x, toMousePos.y, toMousePos.z + pos.y);

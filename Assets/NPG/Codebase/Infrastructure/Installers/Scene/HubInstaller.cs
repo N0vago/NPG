@@ -1,8 +1,9 @@
 ﻿using NPG.Codebase.Game.Gameplay.Player;
+using NPG.Codebase.Game.Gameplay.UI.HUD;
 using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+using NPG.Codebase.Infrastructure.Factories;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using Zenject;
 
@@ -12,11 +13,11 @@ namespace NPG.Codebase.Infrastructure.Installers.Scene
     {
         public override void InstallBindings()
         {
+            Container.Bind<PlayerCharacter>().FromComponentInHierarchy().AsSingle();
+            
             Container.Bind<PlayerController>().FromComponentInHierarchy().AsSingle();
             
-            Container.Bind<UIRootBinder>().FromComponentInHierarchy().AsSingle();
-            
-            Container.Bind<HubObjects>().FromScriptableObjectResource("HubObjects").AsSingle();
+            Container.Bind<HubObjects>().FromScriptableObjectResource("InGameData/HubObjects").AsSingle();
             
             Container.Bind<ItemContainerBinder>().FromComponentInHierarchy().AsTransient();
 

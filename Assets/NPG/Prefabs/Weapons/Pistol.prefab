@@ -207,5 +207,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: acde8077cebcbd34a929345f9e9dc7c2, type: 2}
-  muzzlePoint: {fileID: 0}
+  muzzlePoint: {fileID: 1424269434135573379}
   reservedAmmo: 1000

@@ -1,7 +1,6 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Root;
+﻿using NPG.Codebase.Game.Gameplay.UI.HUD;
+using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
 using Zenject;
 
 namespace NPG.Codebase.Infrastructure.Installers.Project
@@ -10,13 +9,15 @@ namespace NPG.Codebase.Infrastructure.Installers.Project
     {
         public override void InstallBindings()
         {
+            Container.Bind<EquipmentWindowViewModel>().FromNew().AsSingle();
+            
+            Container.Bind<UIRootBinder>().FromComponentSibling().AsSingle();
+            
             Container.Bind<UIRootViewModel>().FromNew().AsSingle();
             
-            Container.Bind<EquipmentWindowBinder>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<HUDBinder>().FromComponentSibling().AsSingle();
 
-            Container.Bind<ItemContainerBinder>().FromComponentInHierarchy().AsSingle();
-            
-            Container.Bind<SlotContainerBinder>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<WeaponSelectorBinder>().FromComponentSibling().AsSingle();
             
         }
         

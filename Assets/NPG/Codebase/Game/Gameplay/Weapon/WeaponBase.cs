@@ -23,10 +23,14 @@ namespace NPG.Codebase.Game.Gameplay.Weapon
 
         public bool IsShooting { get; private set; }
         
-
-        private void OnEnable()
+        public void SetController(PlayerController playerController)
         {
-            PlayerController = GetComponentInParent<PlayerController>();
+            if (playerController == null)
+            {
+                Debug.LogError("PlayerController is null. Cannot set controller for weapon.");
+                return;
+            }
+            PlayerController = playerController;
         }
 
         public async UniTask PullTrigger()

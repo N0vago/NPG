@@ -6,8 +6,8 @@
         public const string PistolSlot = "PistolSlot";
         public const string ShotgunSlot = "ShotgunSlot";
         public const string RifleSlot = "RifleSlot";
-        public const string GrenadeLauncherSlot = "GrenadeSlot";
-        public const string EnergyWeaponSlot = "EnergyWeaponSlot";
+        public const string GrenadeLauncherSlot = "GrenadeLauncherSlot";
+        public const string EnergyGunSlot = "EnergyGunSlot";
         public const string ArtefactSlot = "ArtefactSlot";
         public const string ArmorSlot = "ArmorSlot";
     }

@@ -1,7 +1,7 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Root;
+using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
 using UnityEngine;
 using UnityEngine.UI;
-using R3;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot
 {
@@ -10,15 +10,15 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot
         [SerializeField] private Image slotImage;
         [SerializeField] private Color defaultColor = Color.white;
         [SerializeField] private Color hoverColor = Color.red;
-        
-        private RectTransform _slotRectTransform;
+        [SerializeField] private ItemType containedItemType = ItemType.None;
         public bool IsAvailable => ViewModel.IsAvailable;
+        public ItemType ContainedItemType => containedItemType;
+        public SlotContainerBinder SlotContainerBinder { get; private set; }
         
         protected override void OnBind(InventorySlotViewModel viewModel)
         {
             base.OnBind(viewModel);
             
-            ViewModel.SlotRectTransform = _slotRectTransform;
         }
         
         public void SetSlotColor(SlotColor slotColor)
@@ -38,7 +38,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot
         }
         private void Awake()
         {
-            _slotRectTransform = GetComponent<RectTransform>();
+            SlotContainerBinder = GetComponentInParent<SlotContainerBinder>();
         }
     }
 

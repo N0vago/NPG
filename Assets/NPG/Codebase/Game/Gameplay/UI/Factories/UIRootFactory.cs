@@ -1,5 +1,4 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Root;
-using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
