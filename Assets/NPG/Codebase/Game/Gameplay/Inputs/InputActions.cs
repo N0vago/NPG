@@ -158,11 +158,33 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9bf31217-2e8a-4da5-814b-63fd68e9698d"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56843061-b2ce-443c-ac57-79950f90bbf1"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -202,11 +224,33 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""dc3ad52a-d2d2-4c26-a1d2-3099a07d587d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9d8608c8-af0c-485a-a724-116066615762"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""299e991b-dadb-4c1c-9f4c-233daaf8101f"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -229,6 +273,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27dc7fe0-6094-408e-842c-8011713e1256"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -301,6 +356,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenMenuWindow"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b050b7c-4cd1-4f88-b492-95df92050b19"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -311,6 +375,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""OpenEquipment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e283950e-fc42-45dd-b913-bf6852da11d7"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""OpenEquipment"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -424,6 +499,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Select Weapot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa37d777-bfc8-462d-960d-4fd4a23c3697"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""OpenMenuWindow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -510,6 +596,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_UI_MiddleClick = m_UI.FindAction("Middle Click", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("Right Click", throwIfNotFound: true);
         m_UI_SelectWeapot = m_UI.FindAction("Select Weapot", throwIfNotFound: true);
+        m_UI_OpenMenuWindow = m_UI.FindAction("OpenMenuWindow", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -686,6 +773,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_SelectWeapot;
+    private readonly InputAction m_UI_OpenMenuWindow;
     public struct UIActions
     {
         private @InputActions m_Wrapper;
@@ -697,6 +785,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @SelectWeapot => m_Wrapper.m_UI_SelectWeapot;
+        public InputAction @OpenMenuWindow => m_Wrapper.m_UI_OpenMenuWindow;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -727,6 +816,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @SelectWeapot.started += instance.OnSelectWeapot;
             @SelectWeapot.performed += instance.OnSelectWeapot;
             @SelectWeapot.canceled += instance.OnSelectWeapot;
+            @OpenMenuWindow.started += instance.OnOpenMenuWindow;
+            @OpenMenuWindow.performed += instance.OnOpenMenuWindow;
+            @OpenMenuWindow.canceled += instance.OnOpenMenuWindow;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -752,6 +844,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @SelectWeapot.started -= instance.OnSelectWeapot;
             @SelectWeapot.performed -= instance.OnSelectWeapot;
             @SelectWeapot.canceled -= instance.OnSelectWeapot;
+            @OpenMenuWindow.started -= instance.OnOpenMenuWindow;
+            @OpenMenuWindow.performed -= instance.OnOpenMenuWindow;
+            @OpenMenuWindow.canceled -= instance.OnOpenMenuWindow;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -834,5 +929,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnMiddleClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
         void OnSelectWeapot(InputAction.CallbackContext context);
+        void OnOpenMenuWindow(InputAction.CallbackContext context);
     }
 }

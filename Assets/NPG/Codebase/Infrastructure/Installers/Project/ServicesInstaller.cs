@@ -1,4 +1,5 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
+﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
+using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
 using NPG.Codebase.Infrastructure.BindingRegistration;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
@@ -15,8 +16,10 @@ namespace NPG.Codebase.Infrastructure.Installers.Project
             Container.Bind<GameStateMachine>().FromNew().AsSingle();
 
             Container.Bind<HubState>().FromNew().AsSingle();
-            
-            Container.Bind<SceneLoader>().FromNew().AsSingle();
+
+            Container.Bind<MenuState>().FromNew().AsSingle();
+
+			Container.Bind<SceneLoader>().FromNew().AsSingle();
 
             Container.Bind<ProgressDataHandler>().FromNew().AsSingle();
 

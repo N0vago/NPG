@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.NPG.Codebase.Infrastructure.JsonData;
+using System;
 using System.Collections.Generic;
 
 namespace NPG.Codebase.Infrastructure.JsonData
@@ -6,8 +7,13 @@ namespace NPG.Codebase.Infrastructure.JsonData
     [Serializable]
     public class GameData
     {
-        public PlayerData playerData = new();
+        public List<Assets.NPG.Codebase.Infrastructure.JsonData.UserProfileData> userData = new();
+        public string currentUserId;
 
-        public List<InventoryItemData> inventoryItemData = new();
-    }
+        public int GetCurrentUserIndex()
+        {
+            return userData.FindIndex(user => user.userId == currentUserId);
+		}
+
+	}
 }

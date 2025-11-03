@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +20,9 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine
             
             _states.Add(typeof(TState), gameState);
         }
-
-        public void Enter<TState>() where TState : class, IState =>
+		public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadState<TPayload> =>
+			ChangeState<TState>().Enter(payload);
+		public void Enter<TState>() where TState : class, IState =>
             ChangeState<TState>().Enter();
         
         private TState ChangeState<TState>() where TState : class, IExitableState

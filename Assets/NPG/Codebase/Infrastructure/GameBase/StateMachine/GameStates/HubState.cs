@@ -1,5 +1,7 @@
 ﻿using NPG.Codebase.Game.Gameplay.Player;
 using NPG.Codebase.Game.Gameplay.UI.Factories;
+using NPG.Codebase.Game.Gameplay.UI.HUD;
+using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
 using Unity.Cinemachine;
@@ -15,8 +17,9 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
         
         private PlayerController _playerController;
         private CinemachineCamera _cinemachineCamera;
+        private UIRootFactory _uiRootFactory;
 
-        private DiContainer _container;
+		private DiContainer _container;
 
         public void Exit()
         {
@@ -34,7 +37,6 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
         {
             foreach (var hubObject in _hubObjects.hubObjects)
             {
-
                 GameObject prefab;
                 GameObject instance;
                 
@@ -56,10 +58,16 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
                         _cinemachineCamera.Target.TrackingTarget = _playerController.gameObject.transform;
                         break;
                     case HubIDs.UIRoot:
-                        var uiRootFactory = _container.Resolve<UIRootFactory>();
-                        uiRootFactory.CreateUIRoot(hubObject.addressableName);
-                        break;
-                }
+                        _uiRootFactory = _container.Resolve<UIRootFactory>();
+                        _uiRootFactory.CreateUIRoot(hubObject.addressableName);
+						break;
+                    case HubIDs.HUDCanvas:
+                        prefab = PrefabProvider.LoadPrefab(hubObject.addressableName);
+                        instance = _container.InstantiatePrefab(prefab, _uiRootFactory.UIRootBinder.transform);
+                        HUDBinder hudBinder = instance.GetComponent<HUDBinder>();
+                        _uiRootFactory.UIRootBinder.AttachScreenBinder(hudBinder);
+						break;
+				}
             }
 
             if (_cinemachineCamera != null)

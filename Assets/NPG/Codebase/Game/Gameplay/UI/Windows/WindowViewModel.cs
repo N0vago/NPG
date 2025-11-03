@@ -1,17 +1,23 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Root;
 using R3;
+using System;
+using UnityEngine;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Windows
 {
     public abstract class WindowViewModel : ViewModel
     {
-        public Observable<ViewModel> CloseRequested => _closeRequested;
+		/// <summary>
+        /// OnOpened implemented only for compatibility with WindowsFactory, do not use it in new code
+        /// </summary>
+		public Action OnOpened;
+		public Observable<ViewModel> CloseRequested => _closeRequested;
         
         public Observable<ViewModel> HideRequested => _hideRequested;
         
         public Observable<ViewModel> ShowRequested => _showRequested;
 
-        private readonly Subject<ViewModel> _closeRequested = new();
+		private readonly Subject<ViewModel> _closeRequested = new();
         
         private readonly Subject<ViewModel> _hideRequested = new();
         
@@ -23,17 +29,19 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows
 
         public void RequestHide()
         {
-            if (!IsVisible)
+            Debug.Log("RequestHide called on WindowViewModel: " + Id);
+			if (!IsVisible)
             {
                 return;
             }
-            IsVisible = false;
+			IsVisible = false;
             _hideRequested.OnNext(this);
         }
         
         public void RequestShow()
         {
-            if (IsVisible)
+            Debug.Log("RequestShow called on WindowViewModel: " + Id);
+			if (IsVisible)
             {
                 return;
             }
@@ -43,7 +51,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows
         
         public void RequestClose()
         {
-            _closeRequested.OnNext(this);
+            IsVisible = false;
+			_closeRequested.OnNext(this);
         }
         
         public override void Dispose()

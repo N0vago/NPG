@@ -27,6 +27,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e6d8933eeaefb540a4f0e9f827bb075
+    m_Address: UserWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1f7a5e9d91aeb2d4e84be9e189ff8742
+    m_Address: MenuWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 22e41d77689952c419e54f95239c42b5
     m_Address: ShotgunItem
     m_ReadOnly: 0
@@ -44,6 +54,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4f89a3bd9c8aaa34f95f0d97f4a998a9
     m_Address: ArmorSlot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52c5ebb0e7a57834687e044f9646ef14
+    m_Address: MenuCanvas
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -68,7 +83,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b83f50fe7a5ce604eb51d743f06df53f
-    m_Address: HUD
+    m_Address: HUDCanvas
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

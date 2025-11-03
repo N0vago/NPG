@@ -15,6 +15,7 @@ namespace NPG.Codebase.Infrastructure.ScriptableObjects.StaticData
         Player,
         CinemachineCamera,
         Camera,
-        UIRoot
-    }
+        UIRoot,
+		HUDCanvas
+	}
 }

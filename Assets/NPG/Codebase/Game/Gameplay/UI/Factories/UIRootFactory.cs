@@ -11,8 +11,11 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
         private UIRootViewModel _uiRootViewModel;
 
         private DiContainer _container;
-        
-        public UIRootFactory(DiContainer container, UIRootViewModel uiRootViewModel)
+
+        public UIRootBinder UIRootBinder => _uiRootBinder;
+        public UIRootViewModel UIRootViewModel => _uiRootViewModel;
+
+		public UIRootFactory(DiContainer container, UIRootViewModel uiRootViewModel)
         {
             _container = container;
             

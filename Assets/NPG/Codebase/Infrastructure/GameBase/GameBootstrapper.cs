@@ -1,4 +1,5 @@
-﻿using NPG.Codebase.Infrastructure.AutoSaving;
+﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
+using NPG.Codebase.Infrastructure.AutoSaving;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
 using NPG.Codebase.Infrastructure.Services;
@@ -13,15 +14,17 @@ namespace NPG.Codebase.Infrastructure.GameBase
     {
         private GameStateMachine _stateMachine;
         private HubState _hubState;
-        private SceneLoader _sceneLoader;
+        private MenuState _menuState;
+		private SceneLoader _sceneLoader;
         private DiContainer _diContainer;
 
         [Inject]
-        public void Construct(GameStateMachine stateMachine, HubState hubState ,SceneLoader sceneLoader, DiContainer diContainer)
+        public void Construct(GameStateMachine stateMachine, HubState hubState, MenuState menuState, SceneLoader sceneLoader, DiContainer diContainer)
         {
             _stateMachine = stateMachine;
             _hubState = hubState;
-            _sceneLoader = sceneLoader;
+            _menuState = menuState;
+			_sceneLoader = sceneLoader;
             _diContainer = diContainer;
         }
 
@@ -31,7 +34,8 @@ namespace NPG.Codebase.Infrastructure.GameBase
             _diContainer.InstantiatePrefab(prefab);
             
             _stateMachine.AddState(new BootstrapState(_sceneLoader, _stateMachine));
-            _stateMachine.AddState(_hubState);
+            _stateMachine.AddState(_menuState);
+			_stateMachine.AddState(_hubState);
             _stateMachine.Enter<BootstrapState>();
         }
     }

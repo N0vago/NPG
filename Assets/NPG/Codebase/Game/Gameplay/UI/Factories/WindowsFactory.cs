@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using NPG.Codebase.Game.Gameplay.UI.Windows;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
         {
             _container = container;
         }
-        public async UniTaskVoid OpenWindow(WindowViewModel window, Transform parent)
+        public void OpenWindow(WindowViewModel window, Transform parent)
         {
             if (_windows.ContainsKey(window))
             {
@@ -26,18 +27,21 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
                 return;
             }
             
-            var asyncHandler = PrefabProvider.LoadPrefabAsync(window.Id);
-
-            var prefab = await asyncHandler;
+            var prefab = PrefabProvider.LoadPrefab(window.Id);
             
             var instance = _container.InstantiatePrefab(prefab, parent);
             
             var binder = instance.GetComponent<WindowBinder>();
             
             binder.Bind(window);
-            
-            _windows.Add(window, binder);
-        }
+
+			_windows.Add(window, binder);
+
+            window.RequestShow();
+
+            window.OnOpened.Invoke();
+
+		}
 
         public void CloseWindow(WindowViewModel window)
         {

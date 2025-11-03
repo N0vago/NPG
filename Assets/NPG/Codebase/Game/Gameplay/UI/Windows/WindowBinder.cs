@@ -10,7 +10,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows
     {
         private Canvas _canvas;
         
-        private CompositeDisposable _disposables = new CompositeDisposable();
+        protected CompositeDisposable _disposables = new CompositeDisposable();
         protected override void OnBind(WindowViewModel viewModel)
         {
             base.OnBind(viewModel);
@@ -20,15 +20,19 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows
             viewModel.ShowRequested.Subscribe(_ => ShowWindow()).AddTo(_disposables);
         }
 
-        public void HideWindow()
+        private void HideWindow()
         {
-            _canvas.enabled = false;
-        }
+            Debug.Log("Hiding Window: " + ViewModel.Id);
+			_canvas.enabled = false;
+            OnHide();
+		}
         
-        public void ShowWindow()
+        private void ShowWindow()
         {
-            _canvas.enabled = true;
-        }
+            Debug.Log("Showing Window: " + ViewModel.Id);
+			_canvas.enabled = true;
+            OnShow();
+		}
         
         public void Close()
         {
@@ -52,7 +56,15 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows
         {
             _disposables.Dispose();
         }
-        private void Awake() => OnAwake();
+
+        protected virtual void OnHide()
+        {
+		}
+
+        protected virtual void OnShow()
+        {
+		}
+		private void Awake() => OnAwake();
 
         private void OnEnable() => OnEnabling();
 

@@ -39,10 +39,11 @@ namespace NPG.Codebase.Game.Gameplay.Player
 
         public void Load(GameData data)
         {
-           Vector3 position = new Vector3(
-                data.playerData.xPos,
-                data.playerData.yPos,
-                data.playerData.zPos
+           int userIndex = data.GetCurrentUserIndex();
+			Vector3 position = new Vector3(
+                data.userData[userIndex].playerData.xPos,
+                data.userData[userIndex].playerData.yPos,
+                data.userData[userIndex].playerData.zPos
             );
            
            transform.position = position;
@@ -50,9 +51,10 @@ namespace NPG.Codebase.Game.Gameplay.Player
 
         public void Save(ref GameData data)
         {
-            data.playerData.xPos = Mathf.Round(gameObject.transform.position.x);
-            data.playerData.yPos = Mathf.Round(gameObject.transform.position.y);
-            data.playerData.zPos = Mathf.Round(gameObject.transform.position.z);
+            int userIndex = data.GetCurrentUserIndex();
+            data.userData[userIndex].playerData.xPos = Mathf.Round(gameObject.transform.position.x);
+            data.userData[userIndex].playerData.yPos = Mathf.Round(gameObject.transform.position.y);
+            data.userData[userIndex].playerData.zPos = Mathf.Round(gameObject.transform.position.z);
         }
         private void Awake()
         {

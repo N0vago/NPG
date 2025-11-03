@@ -1,4 +1,6 @@
-﻿using NPG.Codebase.Infrastructure.IDs;
+﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
+using Assets.NPG.Codebase.Infrastructure.JsonData;
+using NPG.Codebase.Infrastructure.IDs;
 using NPG.Codebase.Infrastructure.Services;
 
 namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
@@ -15,11 +17,13 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
         }
         public async void Enter()
         {
-            await _sceneLoader.LoadSceneAsync((int)SceneIDs.Hub, OnSceneLoaded);
-        }
+            //await _sceneLoader.LoadSceneAsync((int)SceneIDs.MainMenu, OnSceneLoaded);
+			await _sceneLoader.LoadSceneAsync((int) SceneIDs.Hub, OnSceneLoaded);
+		}
 
         private void OnSceneLoaded()
         {
+            //_stateMachine.Enter<MenuState, UserProfileData>(new UserProfileData());
             _stateMachine.Enter<HubState>();
         }
 

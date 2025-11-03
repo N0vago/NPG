@@ -9,11 +9,11 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
 {
     public class UIRootViewModel : IDisposable
     {
-        public ReadOnlyReactiveProperty<HUDViewModel> OpenedScreen => _openedScreen;
+        public ReadOnlyReactiveProperty<ViewModel> OpenedScreen => _openedScreen;
         
         public IObservableCollection<WindowViewModel> OpenedWindows => _openedWindows;
         
-        private readonly ReactiveProperty<HUDViewModel> _openedScreen = new();
+        private readonly ReactiveProperty<ViewModel> _openedScreen = new();
         private readonly ObservableList<WindowViewModel> _openedWindows = new();
         private readonly Dictionary<ViewModel, IDisposable> _viewModelSubscriptions = new();
 
@@ -23,13 +23,13 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
             _openedScreen?.Dispose();
         }
         
-        public void OpenHUD(HUDViewModel screenViewModel)
+        public void OpenScreen(ViewModel screenViewModel)
         {
             _openedScreen.Value?.Dispose();
             _openedScreen.Value = screenViewModel;
         }
 
-        public void OpenWindow(WindowViewModel window)
+        public void OpenWindow(WindowViewModel window, Action onOpened = null)
         {
             if (_openedWindows.Contains(window))
             {
@@ -40,9 +40,11 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
             
             subscriptions.Add(window.CloseRequested.Subscribe(_ => CloseWindow(window)));
 
-            
+            window.OnOpened = onOpened;
+
             _viewModelSubscriptions.Add(window, subscriptions);
             _openedWindows.Add(window);
+
         }
         public void CloseWindow(WindowViewModel window)
         {

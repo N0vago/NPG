@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.NPG.Codebase.Infrastructure.JsonData;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
@@ -115,8 +116,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
         
         public void Load(GameData data)
         {
-            List<InventoryItemData> itemData = data.inventoryItemData;
-            
+            List<InventoryItemData> itemData = data.userData[data.GetCurrentUserIndex()].playerData.inventoryItemData;
+
             if (itemData == null || itemData.Count == 0)
                 return;
 
@@ -136,9 +137,11 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
         {
             
             Debug.Log("EquipmentWindowBinder: Saving equipment data");
-            data.inventoryItemData.Clear();
-            
-            List<ItemContainerViewModel> containers = _equipmentWindowViewModel.GetAllItemContainers();
+            int userIndex = data.GetCurrentUserIndex();
+
+			data.userData[userIndex].playerData.inventoryItemData.Clear();
+
+			List<ItemContainerViewModel> containers = _equipmentWindowViewModel.GetAllItemContainers();
 
             foreach (var container in containers)
             {
@@ -149,8 +152,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
                     ContainerID = container.ContainerID,
                     ItemIDs = container.Items.Select(item => item.ItemID).ToList()
                 };
-                
-                data.inventoryItemData.Add(inventoryItemData);
+
+                data.userData[userIndex].playerData.inventoryItemData.Add(inventoryItemData);
             }
         }
         public void RequestItemAddToContainer(ItemViewModel itemViewModel, string containerId)
@@ -206,7 +209,18 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
             }
         }
 
-        protected void OnDestroy()
+		protected override void OnShow()
+		{
+			Cursor.visible = true;
+		}
+
+		protected override void OnHide()
+		{
+		    Cursor.visible = false;
+		}
+		
+
+		protected void OnDestroy()
         {
             _disposables.Dispose();
             _equipmentWindowViewModel = null;
