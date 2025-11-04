@@ -1,18 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.NPG.Codebase.Infrastructure.JsonData;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
-using NPG.Codebase.Infrastructure.JsonData;
-using NPG.Codebase.Infrastructure.Services.DataSaving;
 using R3;
 using UnityEngine;
-using Zenject;
 
 namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
 {
-    public class EquipmentWindowBinder : WindowBinder, IDataWriter
+    public class EquipmentWindowBinder : WindowBinder
     {
         [Header("Inventory setups")]
         [SerializeField] SlotContainerBinder inventorySlotContainerBinder;
@@ -26,19 +22,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
         [SerializeField] SlotContainerBinder[] artefactSlotContainerBinders;
         [SerializeField] ItemContainerBinder[] artefactItemContainerBinders;
         
-        private ItemDataBase _itemDataBase;
-        private ProgressDataHandler _progressDataHandler;
-        
         private EquipmentWindowViewModel _equipmentWindowViewModel;
         
-        private CompositeDisposable _disposables = new();
-        
-        [Inject]
-        public void Construct(ItemDataBase itemDataBase, ProgressDataHandler progressDataHandler)
-        {
-            _itemDataBase = itemDataBase;
-            _progressDataHandler = progressDataHandler;
-        }
         
         protected override void OnBind(WindowViewModel viewModel)
         {
@@ -110,52 +95,10 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
                     _disposables.Add(item.Subscribe(artefactItemContainerBinders[i].Bind));
                 }
             }
-            _progressDataHandler.RegisterObserver(this);
-        }
 
-        
-        public void Load(GameData data)
-        {
-            List<InventoryItemData> itemData = data.userData[data.GetCurrentUserIndex()].playerData.inventoryItemData;
+            equipmentWindowViewModel.Init();
+		}
 
-            if (itemData == null || itemData.Count == 0)
-                return;
-
-            foreach (var item in itemData)
-            {
-                ItemContainerViewModel container = _equipmentWindowViewModel.GetItemContainer(item.ContainerID);
-                
-                foreach (var itemId in item.ItemIDs)
-                {
-                    ItemSetting itemSetting = _itemDataBase.TryGetItemSetting(itemId);
-                    container.TryAddItem(new ItemViewModel(itemSetting, itemId));
-                }
-            }
-        }
-
-        public void Save(ref GameData data)
-        {
-            
-            Debug.Log("EquipmentWindowBinder: Saving equipment data");
-            int userIndex = data.GetCurrentUserIndex();
-
-			data.userData[userIndex].playerData.inventoryItemData.Clear();
-
-			List<ItemContainerViewModel> containers = _equipmentWindowViewModel.GetAllItemContainers();
-
-            foreach (var container in containers)
-            {
-                if(container.Items.Count == 0)
-                    continue;
-                InventoryItemData inventoryItemData = new InventoryItemData()
-                {
-                    ContainerID = container.ContainerID,
-                    ItemIDs = container.Items.Select(item => item.ItemID).ToList()
-                };
-
-                data.userData[userIndex].playerData.inventoryItemData.Add(inventoryItemData);
-            }
-        }
         public void RequestItemAddToContainer(ItemViewModel itemViewModel, string containerId)
         {
             var container = _equipmentWindowViewModel.GetItemContainer(containerId);
@@ -208,26 +151,5 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
                 }
             }
         }
-
-		protected override void OnShow()
-		{
-			Cursor.visible = true;
-		}
-
-		protected override void OnHide()
-		{
-		    Cursor.visible = false;
-		}
-		
-
-		protected void OnDestroy()
-        {
-            _disposables.Dispose();
-            _equipmentWindowViewModel = null;
-            inventorySlotContainerBinder = null;
-            inventoryItemContainerBinder = null;
-            weaponSlotContainerBinders = null;
-            weaponItemContainerBinders = null;
-        }
-    }
+	}
 }

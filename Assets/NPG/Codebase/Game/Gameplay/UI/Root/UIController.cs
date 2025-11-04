@@ -4,7 +4,9 @@ using Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu;
 using NPG.Codebase.Game.Gameplay.UI.HUD;
 using NPG.Codebase.Game.Gameplay.UI.Windows;
 using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment;
+using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
 using NPG.Codebase.Infrastructure.BindingRegistration;
+using NPG.Codebase.Infrastructure.Services.DataSaving;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -22,16 +24,25 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
         private InputAction _openEquipmentAction;
 
         private InputAction _openMenuWindowAction;
-        
-        private EquipmentWindowViewModel _equipmentWindowViewModel;
-        private MenuWindowViewModel _menuWindowViewModel;
 
-        [Inject]
-        public void Construct(InputActions inputActions, UIRootViewModel uiRootViewModel)
+		//Equipment window
+		private EquipmentWindowViewModel _equipmentWindowViewModel;
+        private ItemDataBase _itemDataBase;
+
+		//Menu window
+		private MenuWindowViewModel _menuWindowViewModel;
+
+
+        private ProgressDataHandler _progressDataHandler;
+
+		[Inject]
+        public void Construct(InputActions inputActions, UIRootViewModel uiRootViewModel, ItemDataBase itemDataBase, ProgressDataHandler progressDataHandler)
         {
             _inputActions = inputActions;
             _uiRootViewModel = uiRootViewModel;
-        }
+            _itemDataBase = itemDataBase;
+            _progressDataHandler = progressDataHandler;
+		}
         
 
         private void OnEnable()
@@ -40,23 +51,17 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
             {
                 case "Hub":
 
+					_uiRootViewModel.OpenScreen(new HUDViewModel(new WeaponSelectorViewModel(_equipmentWindowViewModel)));
+
 					//Equipment window
 					_openEquipmentAction = _inputActions.UI.OpenEquipment;
 					_openEquipmentAction.Enable();
 					_openEquipmentAction.performed += OnOpenEquipment;
 
-					_equipmentWindowViewModel = new EquipmentWindowViewModel();
-
-					_uiRootViewModel.OpenScreen(new HUDViewModel(new WeaponSelectorViewModel(_equipmentWindowViewModel)));
-					_uiRootViewModel.OpenWindow(_equipmentWindowViewModel, _equipmentWindowViewModel.RequestHide);
-
                     //Menu window
                     _openMenuWindowAction = _inputActions.UI.OpenMenuWindow;
 					_openMenuWindowAction.Enable();
 					_openMenuWindowAction.performed += OnOpenMenu;
-
-                    _menuWindowViewModel = new MenuWindowViewModel();
-                    _uiRootViewModel.OpenWindow(_menuWindowViewModel, _menuWindowViewModel.RequestHide);
 
 					break;
 				case "MainMenu":
@@ -73,7 +78,11 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
                 case "Hub":
 					_openEquipmentAction.performed -= OnOpenEquipment;
 					_openEquipmentAction.Disable();
-					_equipmentWindowViewModel.RequestClose();
+
+                    _openMenuWindowAction.performed -= OnOpenMenu;
+                    _openMenuWindowAction.Disable();
+
+					_uiRootViewModel.CloseWindow(_equipmentWindowViewModel);
 					break;
 				case "MainMenu":
 					return;
@@ -82,30 +91,37 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
 
 		private void OnOpenMenu(InputAction.CallbackContext context)
 		{
-			if(!_menuWindowViewModel.IsVisible)
+            if (_menuWindowViewModel != null)
             {
-                _menuWindowViewModel.RequestShow();
-                _inputActions.Player.Disable();
+                if (_uiRootViewModel.OpenedWindows.Contains(_menuWindowViewModel))
+                {
+                    _uiRootViewModel.CloseWindow(_menuWindowViewModel);
+                    _inputActions.Player.Enable();
+                    return;
+                }
             }
-            else
-            {
-                _menuWindowViewModel.RequestHide();
-				_inputActions.Player.Enable();
-			}
+            
+            _menuWindowViewModel = new MenuWindowViewModel(_progressDataHandler);
+			_uiRootViewModel.OpenWindow(_menuWindowViewModel);
+			_inputActions.Player.Disable();
+			
 		}
         private void OnOpenEquipment(InputAction.CallbackContext obj)
         {
-            if (!_equipmentWindowViewModel.IsVisible)
+            if (_equipmentWindowViewModel != null)
             {
-                _equipmentWindowViewModel.RequestShow();
-                _inputActions.Player.Disable();
+                if (_uiRootViewModel.OpenedWindows.Contains(_equipmentWindowViewModel))
+                {
+                    _uiRootViewModel.CloseWindow(_equipmentWindowViewModel);
+                    _inputActions.Player.Enable();
+                    return;
+				}
             }
-            else
-            {
-                _equipmentWindowViewModel.RequestHide();
-                _equipmentWindowViewModel.Dispose();
-                _inputActions.Player.Enable();
-            }
+
+            _equipmentWindowViewModel = new EquipmentWindowViewModel(_itemDataBase, _progressDataHandler);
+			_uiRootViewModel.OpenWindow(_equipmentWindowViewModel);
+			_inputActions.Player.Disable();
+            
         }
     }
 }

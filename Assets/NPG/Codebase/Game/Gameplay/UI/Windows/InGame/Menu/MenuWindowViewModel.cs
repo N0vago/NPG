@@ -1,4 +1,6 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Windows;
+using NPG.Codebase.Infrastructure.JsonData;
+using NPG.Codebase.Infrastructure.Services.DataSaving;
 using R3;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using UnityEngine;
 
 namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
 {
-	public class MenuWindowViewModel : WindowViewModel
+	public class MenuWindowViewModel : WindowViewModel, IDataWriter
 	{
 
 		private readonly ReactiveProperty<(int width, int height)> resolutionChange;
@@ -24,15 +26,23 @@ namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
 			(1920, 1080),
 		};
 
+		private ProgressDataHandler _progressDataHandler;
+
 		public ReadOnlyReactiveProperty<(int width, int height)> ResolutionProperty => resolutionChange;
 
 		public (int width, int height) CurrentResolution => currentResolution;
 
 		public override string Id => "MenuWindow";
 
-		public MenuWindowViewModel()
+		public MenuWindowViewModel(ProgressDataHandler progressDataHandler)
 		{
-			resolutionChange = new ReactiveProperty<(int width, int height)>(currentResolution);
+			_progressDataHandler = progressDataHandler;
+			resolutionChange = new ReactiveProperty<(int width, int height)>((1920, 1080));
+		}
+
+		public void Init()
+		{
+			_progressDataHandler.RegisterObserver(this);
 		}
 
 		public void ChangeResolution(ResolutionChangeDirection direction)
@@ -49,16 +59,31 @@ namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
 				int previousIndex = (currentIndex - 1 + availableResolutions.Count) % availableResolutions.Count;
 				resolutionChange.Value = availableResolutions[previousIndex];
 			}
-			Debug.Log($"Resolution changed to: {resolutionChange.Value.width} x {resolutionChange.Value.height}");
 		}
 
 		public void ApplySettings()
 		{
 			currentResolution = resolutionChange.Value;
-			Debug.Log($"Applying resolution: {currentResolution.width} x {currentResolution.height}");
 			Screen.SetResolution(currentResolution.width, currentResolution.height, Screen.fullScreen);
 		}
 
+		public void Save(ref GameData data)
+		{
+			data.gamePreferences.resolutionWidth = currentResolution.width;
+			data.gamePreferences.resolutionHeight = currentResolution.height;
+		}
+
+		public void Load(GameData data)
+		{
+			currentResolution = (data.gamePreferences.resolutionWidth, data.gamePreferences.resolutionHeight);
+			resolutionChange.Value = currentResolution;
+		}
+
+		public override void Dispose()
+		{
+			_progressDataHandler.SaveProgress(this);
+			base.Dispose();
+		}
 	}
 
 	public enum ResolutionChangeDirection

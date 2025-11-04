@@ -12,8 +12,7 @@ namespace NPG.Codebase.Infrastructure.Services.DataSaving
         
         private readonly List<IDataReader> _dataOperators = new();
 
-        private const string DataPath = "Assets/NPG/Resources/ProgressData/GameProgressData.json";
-        private const string ResourcesPath = "ProgressData/GameProgressData";
+        private string DataPath = Application.persistentDataPath + "/GameProgressData.json";
         private const string InitialConfigPath = "ProgressData/InitialConfiguration";
 
         public ProgressDataHandler()
@@ -79,7 +78,7 @@ namespace NPG.Codebase.Infrastructure.Services.DataSaving
 
         private GameData GatherGameData()
         {
-            TextAsset jsonAsset = Resources.Load<TextAsset>(ResourcesPath);
+            TextAsset jsonAsset = Resources.Load<TextAsset>(DataPath);
             if (jsonAsset == null)
             {
                 jsonAsset = GetInitialConfiguration();

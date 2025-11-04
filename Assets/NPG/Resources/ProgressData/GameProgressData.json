@@ -6,9 +6,9 @@
       "userIconPath": "userIconPath",
       "isCurrentUser": false,
       "playerData": {
-        "xPos": -16.0,
+        "xPos": -27.0,
         "yPos": 1.0,
-        "zPos": -72.0,
+        "zPos": -76.0,
         "inventoryItemData": [
           {
             "ItemIDs": [
@@ -44,5 +44,9 @@
       }
     }
   ],
-  "currentUserId": "1234"
+  "currentUserId": "1234",
+  "gamePreferences": {
+    "resolutionWidth": 1024,
+    "resolutionHeight": 768
+  }
 }

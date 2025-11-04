@@ -37,10 +37,6 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
 
 			_windows.Add(window, binder);
 
-            window.RequestShow();
-
-            window.OnOpened.Invoke();
-
 		}
 
         public void CloseWindow(WindowViewModel window)

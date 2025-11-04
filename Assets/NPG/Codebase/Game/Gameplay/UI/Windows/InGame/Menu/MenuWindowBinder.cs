@@ -44,6 +44,8 @@ namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
 				resolutionValueText.text = $"{resolution.width} x {resolution.height}";
 			}));
 
+			menuViewModel.Init();
+
 		}
 
 		private void OnEnable()

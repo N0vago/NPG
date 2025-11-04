@@ -29,7 +29,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
             _openedScreen.Value = screenViewModel;
         }
 
-        public void OpenWindow(WindowViewModel window, Action onOpened = null)
+        public void OpenWindow(WindowViewModel window)
         {
             if (_openedWindows.Contains(window))
             {
@@ -39,8 +39,6 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
             using CompositeDisposable subscriptions = new CompositeDisposable();
             
             subscriptions.Add(window.CloseRequested.Subscribe(_ => CloseWindow(window)));
-
-            window.OnOpened = onOpened;
 
             _viewModelSubscriptions.Add(window, subscriptions);
             _openedWindows.Add(window);

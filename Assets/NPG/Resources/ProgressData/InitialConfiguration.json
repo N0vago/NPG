@@ -4,8 +4,6 @@
       "userName": "BigBoy",
       "userId": "1234",
       "userIconPath": "userIconPath",
-
-      "isLastSessionWasLoaded": true,
       "isCurrentUser": false,
       "playerData": {
         "xPos": -27.0,
@@ -47,5 +45,9 @@
       }
     }
   ],
-  "currentUserId": "1234"
+  "currentUserId": "1234",
+  "gamePreferences": {
+    "resolutionWidth": 1920,
+    "resolutionHeight" : 1080
+  }
 }

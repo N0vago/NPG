@@ -10,6 +10,8 @@ namespace NPG.Codebase.Infrastructure.JsonData
         public List<Assets.NPG.Codebase.Infrastructure.JsonData.UserProfileData> userData = new();
         public string currentUserId;
 
+        public GamePreferences gamePreferences = new();
+
         public int GetCurrentUserIndex()
         {
             return userData.FindIndex(user => user.userId == currentUserId);
