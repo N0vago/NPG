@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item;
 using UnityEngine;
 using Zenject;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;

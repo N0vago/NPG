@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot;
 using UnityEngine;
 using Zenject;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;

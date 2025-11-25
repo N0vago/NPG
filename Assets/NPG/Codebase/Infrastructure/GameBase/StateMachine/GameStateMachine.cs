@@ -1,5 +1,4 @@
-﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 

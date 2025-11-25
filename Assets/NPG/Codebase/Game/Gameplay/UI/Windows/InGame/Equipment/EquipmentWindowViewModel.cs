@@ -1,15 +1,16 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot;
 using NPG.Codebase.Infrastructure.IDs;
 using NPG.Codebase.Infrastructure.JsonData;
+using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.Services.DataSaving;
 using R3;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
 {
     public class EquipmentWindowViewModel : WindowViewModel, IDataWriter
     {

@@ -1,11 +1,9 @@
-using UnityEngine;
-using NPG.Codebase.Game.Gameplay.UI.Windows;
-using UnityEngine.UI;
-using Assets.NPG.Codebase.Game.Gameplay.UI.Windows.UserWindow.SelectUserWindow;
-using R3;
 using ObservableCollections;
+using R3;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.UserWindow
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.UserWindow.SelectUserWindow
 {
 	public class UserSelectionWindowBinder : WindowBinder
 	{

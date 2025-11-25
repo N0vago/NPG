@@ -1,5 +1,6 @@
 ﻿using System;
-using NPG.Codebase.Game.Gameplay.ScriptableObjects;
+using NPG.Codebase.Infrastructure.ScriptableObjects;
+using NPG.Codebase.Infrastructure.ScriptableObjects.CharactersSO;
 using UnityEngine;
 
 namespace NPG.Codebase.Game.Gameplay.Modules.Health
@@ -14,16 +15,16 @@ namespace NPG.Codebase.Game.Gameplay.Modules.Health
 
         private bool _isImmortal = false;
         public event Action<float> HealthChanged;
-        public event Action<GameObject> Dead;
+        public event Action Dead;
 
         private void OnEnable()
         {
-            Dead += Destroy;
+            Dead += () => Destroy(gameObject);
         }
 
         private void OnDisable()
         {
-            Dead -= Destroy;
+            Dead = null;
         }
 
         private void Start()
@@ -44,7 +45,7 @@ namespace NPG.Codebase.Game.Gameplay.Modules.Health
             }
 
             _isDead = true;
-            Dead?.Invoke(gameObject);
+            Dead?.Invoke();
 
             return true;
         }

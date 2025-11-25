@@ -1,6 +1,4 @@
-﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
-using NPG.Codebase.Infrastructure.AutoSaving;
-using NPG.Codebase.Infrastructure.GameBase.StateMachine;
+﻿using NPG.Codebase.Infrastructure.GameBase.StateMachine;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
 using NPG.Codebase.Infrastructure.Services;
 using UnityEngine;
@@ -32,6 +30,9 @@ namespace NPG.Codebase.Infrastructure.GameBase
         {
             var prefab = PrefabProvider.LoadPrefab("AutoSaveController");
             _diContainer.InstantiatePrefab(prefab);
+            
+            var achievementManagePrefab = PrefabProvider.LoadPrefab("AchievementManage");
+            _diContainer.InstantiatePrefab(achievementManagePrefab);
             
             _stateMachine.AddState(new BootstrapState(_sceneLoader, _stateMachine));
             _stateMachine.AddState(_menuState);

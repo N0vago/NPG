@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using NPG.Codebase.Game.Gameplay.Player;
-using NPG.Codebase.Game.Gameplay.ScriptableObjects.WeaponSO;
+using NPG.Codebase.Infrastructure.ScriptableObjects.WeaponSO;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

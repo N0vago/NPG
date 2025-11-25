@@ -1,7 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using NPG.Codebase.Game.Gameplay.ScriptableObjects.ProjectileSO;
 using NPG.Codebase.Game.Gameplay.Weapon.Projectile;
+using NPG.Codebase.Infrastructure.ScriptableObjects.ProjectileSO;
 using NPG.Codebase.Infrastructure.Services.ObjectPooling;
 using UnityEngine;
 

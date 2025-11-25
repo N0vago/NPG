@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: de93f4cea17e0654dada38f57492ca91
   m_SerializeEntries:
+  - m_GUID: 475b63490b3b94f4a8471fe640d00419
+    m_Address: AchievementManage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ae23da6773475347a3eb1aca0e36710
     m_Address: AutoSaveController
     m_ReadOnly: 0

@@ -1,6 +1,4 @@
-﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
-using Assets.NPG.Codebase.Infrastructure.JsonData;
-using NPG.Codebase.Infrastructure.IDs;
+﻿using NPG.Codebase.Infrastructure.IDs;
 using NPG.Codebase.Infrastructure.Services;
 
 namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates

@@ -1,11 +1,7 @@
-﻿using NPG.Codebase.Infrastructure.JsonData;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Assets.NPG.Codebase.Infrastructure.JsonData
+namespace NPG.Codebase.Infrastructure.JsonData
 {
 	[Serializable]
 	public class UserProfileData
@@ -15,6 +11,8 @@ namespace Assets.NPG.Codebase.Infrastructure.JsonData
 		public string userIconPath;
 
 		public bool isCurrentUser;
+
+		public List<string> achievementsIDs;
 
 		public PlayerData playerData = new();	
 	}

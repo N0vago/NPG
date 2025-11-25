@@ -1,12 +1,9 @@
 ﻿using System.Collections;
-using NPG.Codebase.Infrastructure.Services.DataSaving;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
-namespace NPG.Codebase.Infrastructure.AutoSaving
+namespace NPG.Codebase.Infrastructure.Services.DataSaving.AutoSaving
 {
     public class AutoSaveController : MonoBehaviour
     {

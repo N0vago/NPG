@@ -1,9 +1,8 @@
-﻿using Assets.NPG.Codebase.Infrastructure.JsonData;
-using NPG.Codebase.Game.Gameplay.UI.Root;
+﻿using NPG.Codebase.Game.Gameplay.UI.Root;
+using NPG.Codebase.Infrastructure.JsonData;
 using R3;
 
-
-namespace Assets.NPG.Codebase.Game.Gameplay.UI.Menu
+namespace NPG.Codebase.Game.Gameplay.UI.Menu
 {
 	public class MenuViewModel : ViewModel
 	{

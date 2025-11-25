@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.ScriptableObjects.ProjectileSO
+namespace NPG.Codebase.Infrastructure.ScriptableObjects.ProjectileSO
 {
-    [CreateAssetMenu(fileName = "ExplosiveProjectileData", menuName = "Projectiles/ExplosiveProjectile", order = 2)]
+    [CreateAssetMenu(fileName = "ExplosiveProjectileData", menuName = "ScriptableObjects/Projectiles/ExplosiveProjectile", order = 2)]
     public class ExplosiveProjectileData : ProjectileData
     {
         [Header("Explosion Settings")]

@@ -1,9 +1,10 @@
-﻿using NPG.Codebase.Game.Gameplay.Player;
+﻿using NPG.Codebase.Game.Gameplay.Achievements;
+using NPG.Codebase.Game.Gameplay.Player;
 using NPG.Codebase.Game.Gameplay.UI.Factories;
 using NPG.Codebase.Game.Gameplay.UI.HUD;
-using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
+using NPG.Codebase.Infrastructure.Services.DataSaving;
 using Unity.Cinemachine;
 using UnityEngine;
 using Zenject;
@@ -19,17 +20,18 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
         private CinemachineCamera _cinemachineCamera;
         private UIRootFactory _uiRootFactory;
 
-		private DiContainer _container;
+        private DiContainer _container;
+        
 
         public void Exit()
         {
-            
         }
 
         public void Enter()
         {
             _container = Object.FindObjectOfType<SceneContext>().Container;
             _hubObjects = _container.Resolve<HubObjects>();
+            AchievementManager.Instance.FirstLaunch();
             InitHub();
         }
         
@@ -39,7 +41,7 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
             {
                 GameObject prefab;
                 GameObject instance;
-                
+
                 switch (hubObject.hubID)
                 {
                     case HubIDs.Player:
@@ -60,7 +62,7 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
                     case HubIDs.UIRoot:
                         _uiRootFactory = _container.Resolve<UIRootFactory>();
                         _uiRootFactory.CreateUIRoot(hubObject.addressableName);
-						break;
+                        break;
                     case HubIDs.HUDCanvas:
                         prefab = PrefabProvider.LoadPrefab(hubObject.addressableName);
                         instance = _container.InstantiatePrefab(prefab, _uiRootFactory.UIRootBinder.transform);

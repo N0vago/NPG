@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot;
 using R3;
 using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
 {
     public class EquipmentWindowBinder : WindowBinder
     {

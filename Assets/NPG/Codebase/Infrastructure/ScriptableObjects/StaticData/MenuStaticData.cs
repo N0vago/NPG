@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Assets.NPG.Codebase.Infrastructure.ScriptableObjects.StaticData
+namespace NPG.Codebase.Infrastructure.ScriptableObjects.StaticData
 {
 	[Serializable]
 	public class MenuStaticData

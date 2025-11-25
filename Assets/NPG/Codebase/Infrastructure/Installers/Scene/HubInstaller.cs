@@ -1,8 +1,7 @@
-﻿using NPG.Codebase.Game.Gameplay.Player;
-using NPG.Codebase.Game.Gameplay.UI.HUD;
-using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+﻿using NPG.Codebase.Game.Gameplay.Enemy;
+using NPG.Codebase.Game.Gameplay.Player;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot;
 using NPG.Codebase.Infrastructure.Factories;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using Zenject;
@@ -26,6 +25,8 @@ namespace NPG.Codebase.Infrastructure.Installers.Scene
             Container.Bind<ItemFactory>().FromNew().AsSingle();
             
             Container.Bind<SlotFactory>().FromNew().AsSingle();
+
+            Container.Bind<Enemy>().FromComponentInHierarchy().AsTransient();
         }
     }
 }

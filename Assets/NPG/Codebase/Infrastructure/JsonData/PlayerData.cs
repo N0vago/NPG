@@ -1,5 +1,4 @@
-﻿using Assets.NPG.Codebase.Infrastructure.JsonData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace NPG.Codebase.Infrastructure.JsonData
@@ -12,5 +11,7 @@ namespace NPG.Codebase.Infrastructure.JsonData
         public float zPos;
 
 		public List<InventoryItemData> inventoryItemData = new();
+		
+		public PlayerStatistics playerStatistics = new();
 	}
 }

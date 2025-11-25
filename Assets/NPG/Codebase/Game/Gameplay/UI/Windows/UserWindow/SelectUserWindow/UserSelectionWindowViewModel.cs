@@ -1,12 +1,10 @@
-﻿using Assets.NPG.Codebase.Infrastructure.JsonData;
-using NPG.Codebase.Game.Gameplay.UI.Windows;
-using NPG.Codebase.Infrastructure.IDs;
+﻿using NPG.Codebase.Infrastructure.IDs;
 using NPG.Codebase.Infrastructure.JsonData;
 using NPG.Codebase.Infrastructure.Services.DataSaving;
 using ObservableCollections;
 using R3;
 
-namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.UserWindow.SelectUserWindow
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.UserWindow.SelectUserWindow
 {
 	public class UserSelectionWindowViewModel : WindowViewModel, IDataReader
 	{

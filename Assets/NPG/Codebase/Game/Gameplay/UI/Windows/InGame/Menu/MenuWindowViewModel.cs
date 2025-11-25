@@ -1,15 +1,10 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Windows;
+﻿using System.Collections.Generic;
 using NPG.Codebase.Infrastructure.JsonData;
 using NPG.Codebase.Infrastructure.Services.DataSaving;
 using R3;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
 {
 	public class MenuWindowViewModel : WindowViewModel, IDataWriter
 	{

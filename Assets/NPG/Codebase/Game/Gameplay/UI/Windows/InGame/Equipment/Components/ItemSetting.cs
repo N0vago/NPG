@@ -1,9 +1,9 @@
 ﻿using System;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item;
 using NPG.Codebase.Game.Gameplay.Weapon;
 using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components
 {
     [Serializable]
     public class ItemSetting 

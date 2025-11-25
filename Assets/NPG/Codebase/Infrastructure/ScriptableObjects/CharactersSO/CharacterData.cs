@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.ScriptableObjects
+namespace NPG.Codebase.Infrastructure.ScriptableObjects.CharactersSO
 {
     [CreateAssetMenu(fileName = "Character", menuName = "ScriptableObjects/CharacterData")]
     public class CharacterData : ScriptableObject

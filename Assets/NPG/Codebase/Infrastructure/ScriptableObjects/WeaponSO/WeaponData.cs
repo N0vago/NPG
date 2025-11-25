@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.ScriptableObjects.WeaponSO
+namespace NPG.Codebase.Infrastructure.ScriptableObjects.WeaponSO
 {
-    [CreateAssetMenu(fileName = "WeaponData", menuName = "Weapons/Weapon", order = 1)]
+    [CreateAssetMenu(fileName = "WeaponData", menuName = "ScriptableObjects/Weapons/Weapon", order = 1)]
     public class WeaponData : ScriptableObject
     {
         [Header("Basic Info")]

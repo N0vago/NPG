@@ -1,15 +1,9 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using R3;
 
-namespace Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu
 {
 	public class MenuWindowBinder : WindowBinder
 	{

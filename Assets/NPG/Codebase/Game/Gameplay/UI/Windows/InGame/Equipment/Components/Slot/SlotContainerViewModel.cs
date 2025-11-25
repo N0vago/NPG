@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
 using ObservableCollections;
 using R3;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot
 {
     public class SlotContainerViewModel : ViewModel
     {

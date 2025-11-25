@@ -1,17 +1,12 @@
-﻿using Assets.NPG.Codebase.Infrastructure.JsonData;
-using NPG.Codebase.Game.Gameplay.UI.Factories;
+﻿using NPG.Codebase.Game.Gameplay.UI.Factories;
 using NPG.Codebase.Game.Gameplay.UI.Root;
+using NPG.Codebase.Infrastructure.JsonData;
 using R3;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Assets.NPG.Codebase.Game.Gameplay.UI.Menu
+namespace NPG.Codebase.Game.Gameplay.UI.Menu
 {
 	public class MenuBinder : Binder<MenuViewModel>
 	{
@@ -21,7 +16,7 @@ namespace Assets.NPG.Codebase.Game.Gameplay.UI.Menu
 
 		[SerializeField] private Button _changeProfileButton;
 
-		private Infrastructure.JsonData.UserProfileData _currentUser;
+		private UserProfileData _currentUser;
 
 		WindowsFactory _windowsFactory;
 

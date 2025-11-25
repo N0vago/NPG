@@ -1,8 +1,7 @@
-﻿using Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
-using NPG.Codebase.Infrastructure.BindingRegistration;
+﻿using NPG.Codebase.Infrastructure.BindingRegistration;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine;
 using NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates;
+using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.Services;
 using NPG.Codebase.Infrastructure.Services.DataSaving;
 using Zenject;

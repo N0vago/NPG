@@ -1,5 +1,5 @@
 ﻿using NPG.Codebase.Game.Gameplay.Modules.Health;
-using NPG.Codebase.Game.Gameplay.ScriptableObjects.WeaponSO;
+using NPG.Codebase.Infrastructure.ScriptableObjects.WeaponSO;
 using UnityEngine;
 
 namespace NPG.Codebase.Game.Gameplay.Weapon.WeaponSctipts

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot;
 using ObservableCollections;
 using R3;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item
 {
     public class ItemBinder : Binder<ItemViewModel>, IDragHandler, IBeginDragHandler, IEndDragHandler
     {

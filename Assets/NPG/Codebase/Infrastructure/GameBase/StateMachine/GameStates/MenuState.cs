@@ -1,10 +1,5 @@
-﻿using Assets.NPG.Codebase.Game.Gameplay.UI.Menu;
-using Assets.NPG.Codebase.Infrastructure.JsonData;
-using Assets.NPG.Codebase.Infrastructure.ScriptableObjects;
-using Assets.NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
-using NPG.Codebase.Game.Gameplay.Player;
-using NPG.Codebase.Game.Gameplay.UI.Factories;
-using NPG.Codebase.Infrastructure.GameBase.StateMachine;
+﻿using NPG.Codebase.Game.Gameplay.UI.Factories;
+using NPG.Codebase.Game.Gameplay.UI.Menu;
 using NPG.Codebase.Infrastructure.JsonData;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
@@ -13,7 +8,7 @@ using UnityEngine;
 using Zenject;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
 
-namespace Assets.NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
+namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
 {
 	public class MenuState : IPayloadState<UserProfileData>, IDataReader
 	{

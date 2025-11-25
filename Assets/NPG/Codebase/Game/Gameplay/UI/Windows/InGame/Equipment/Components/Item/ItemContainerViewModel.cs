@@ -1,10 +1,10 @@
 ﻿using System;
 using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot;
 using ObservableCollections;
 using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item
 {
     public class ItemContainerViewModel : ViewModel
     {

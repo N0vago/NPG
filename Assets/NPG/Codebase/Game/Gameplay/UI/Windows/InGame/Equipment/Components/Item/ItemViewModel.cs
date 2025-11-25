@@ -2,13 +2,13 @@
 using System.Linq;
 using ModestTree;
 using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot;
 using NPG.Codebase.Game.Gameplay.Weapon;
 using ObservableCollections;
 using R3;
 using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item
 {
     public class ItemViewModel : ViewModel
     {

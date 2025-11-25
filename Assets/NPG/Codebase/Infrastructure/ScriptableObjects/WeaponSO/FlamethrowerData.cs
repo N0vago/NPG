@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.ScriptableObjects.WeaponSO
+namespace NPG.Codebase.Infrastructure.ScriptableObjects.WeaponSO
 {
-    [CreateAssetMenu (fileName = "FlamethrowerData", menuName = "Weapons/Flamethrower", order = 2)]
+    [CreateAssetMenu (fileName = "FlamethrowerData", menuName = "ScriptableObjects/Weapons/Flamethrower", order = 2)]
     public class FlamethrowerData : WeaponData
     {
         [Header("Flamethrower Settings")]

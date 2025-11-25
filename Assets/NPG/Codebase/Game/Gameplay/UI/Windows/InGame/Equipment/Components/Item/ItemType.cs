@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item
 {
     [Flags]
     public enum ItemType

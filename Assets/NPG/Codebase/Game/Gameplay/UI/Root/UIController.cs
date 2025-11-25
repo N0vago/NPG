@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Assets.NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu;
 using NPG.Codebase.Game.Gameplay.UI.HUD;
 using NPG.Codebase.Game.Gameplay.UI.Windows;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Menu;
 using NPG.Codebase.Infrastructure.BindingRegistration;
+using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.Services.DataSaving;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,12 +24,10 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
         private InputAction _openEquipmentAction;
 
         private InputAction _openMenuWindowAction;
-
-		//Equipment window
+        
 		private EquipmentWindowViewModel _equipmentWindowViewModel;
         private ItemDataBase _itemDataBase;
-
-		//Menu window
+        
 		private MenuWindowViewModel _menuWindowViewModel;
 
 
@@ -118,6 +116,10 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
 				}
             }
 
+            if (_itemDataBase == null)
+            {
+	            Debug.LogError("No item data base was found.");
+            }
             _equipmentWindowViewModel = new EquipmentWindowViewModel(_itemDataBase, _progressDataHandler);
 			_uiRootViewModel.OpenWindow(_equipmentWindowViewModel);
 			_inputActions.Player.Disable();

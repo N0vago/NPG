@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components;
+using NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
 using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components
+namespace NPG.Codebase.Infrastructure.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "ItemsDataBase", menuName = "Equipment/ItemsDataBase", order = 1)]
+    [CreateAssetMenu(fileName = "ItemsDataBase", menuName = "ScriptableObjects/Equipment/ItemsDataBase", order = 1)]
     public class ItemDataBase : ScriptableObject
     {
         public List<ItemData> itemDatas;

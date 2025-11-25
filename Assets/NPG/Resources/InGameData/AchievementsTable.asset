@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6e1d02fcd42b94180f545444d3c6a9, type: 3}
+  m_Name: AchievementsTable
+  m_EditorClassIdentifier: 
+  achievements:
+  - ID: a_1
+    Title: Nowoje nachalo
+    Description: Start a game
+    Points: 5
+  - ID: a_2
+    Title: Krutoj
+    Description: Kill your first enemy
+    Points: 10
+  - ID: a_3
+    Title: Zweruga
+    Description: Kill 5 green enemies
+    Points: 20
+  - ID: a_4
+    Title: Beshenyj
+    Description: Kill 10 green enemies
+    Points: 30
+  - ID: a_5
+    Title: Papasha
+    Description: Kill 1 yellow enemy
+    Points: 15
+  - ID: a_6
+    Title: Mamasha
+    Description: Kill 5 yellow enemies
+    Points: 30
+  - ID: a_7
+    Title: Super beshenyj
+    Description: Kill 10 yellow enemies
+    Points: 60
+  - ID: a_8
+    Title: Pipec krutoj
+    Description: Kill 1 red enemy
+    Points: 20
+  - ID: a_9
+    Title: Zestokij ubijca
+    Description: Kill 5 red enemies
+    Points: 40
+  - ID: a_10
+    Title: Bogopodobnyj
+    Description: Kill 10 red enemies
+    Points: 80

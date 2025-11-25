@@ -1,9 +1,8 @@
-﻿using Assets.NPG.Codebase.Game.Gameplay.UI.Menu;
-using Assets.NPG.Codebase.Infrastructure.ScriptableObjects;
+﻿using NPG.Codebase.Game.Gameplay.UI.Menu;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using Zenject;
 
-namespace Assets.NPG.Codebase.Infrastructure.Installers.Scene
+namespace NPG.Codebase.Infrastructure.Installers.Scene
 {
 	public class MenuInstaller : MonoInstaller
 	{

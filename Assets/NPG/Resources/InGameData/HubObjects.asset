@@ -21,3 +21,5 @@ MonoBehaviour:
     addressableName: MainCamera
   - hubID: 4
     addressableName: UIRoot
+  - hubID: 5
+    addressableName: HUDCanvas

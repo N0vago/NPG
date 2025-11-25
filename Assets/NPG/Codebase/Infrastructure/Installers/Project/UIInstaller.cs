@@ -1,6 +1,6 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.HUD;
 using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment;
 using Zenject;
 
 namespace NPG.Codebase.Infrastructure.Installers.Project

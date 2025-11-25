@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components
 {
     public class Grid2D<T> : IEnumerable<T> where T : class
     {

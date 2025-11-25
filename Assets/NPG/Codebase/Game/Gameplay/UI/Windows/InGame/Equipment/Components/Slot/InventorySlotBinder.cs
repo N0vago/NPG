@@ -1,9 +1,9 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Root;
-using NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Item;
+using NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Item;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NPG.Codebase.Game.Gameplay.UI.Windows.Equipment.Components.Slot
+namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment.Components.Slot
 {
     public class InventorySlotBinder : Binder<InventorySlotViewModel>
     {
