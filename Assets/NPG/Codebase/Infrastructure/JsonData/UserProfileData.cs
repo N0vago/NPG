@@ -8,8 +8,9 @@ namespace NPG.Codebase.Infrastructure.JsonData
 	{
 		public string userName;
 		public string userId;
-		public string userIconPath;
+		public string userAvatar;
 
+		public bool hasSession;
 		public bool isCurrentUser;
 
 		public List<string> achievementsIDs;

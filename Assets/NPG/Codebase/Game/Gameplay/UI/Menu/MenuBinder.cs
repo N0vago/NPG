@@ -1,75 +1,98 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Factories;
-using NPG.Codebase.Game.Gameplay.UI.Root;
+﻿using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Infrastructure.JsonData;
+using NPG.Codebase.Infrastructure.ScriptableObjects;
+using NPG.Codebase.Infrastructure.Services.DataSaving;
 using R3;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-
+using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
 namespace NPG.Codebase.Game.Gameplay.UI.Menu
 {
 	public class MenuBinder : Binder<MenuViewModel>
 	{
-		[SerializeField] private Button _newGameButton;
-		[SerializeField] private Button _continueGameButton;
-		[SerializeField] private Button _exitButton;
+		[SerializeField] private Button newGameButton;
+		[SerializeField] private Button continueGameButton;
+		[SerializeField] private Button exitButton;
 
-		[SerializeField] private Button _changeProfileButton;
-
-		private UserProfileData _currentUser;
-
-		WindowsFactory _windowsFactory;
-
-		private SceneContext _container;
-
+		[SerializeField] private Button changeProfileButton;
+		
+		[SerializeField] private TMP_Text currentUserName;
+		[SerializeField] private Image currentUserAvatar;
+		
+		private MenuViewModel _viewModel;
+		
+		private UIRootViewModel _uiRootViewModel;
+		private ProgressDataHandler _progressDataHandler;
 		private CompositeDisposable _disposables = new CompositeDisposable();
-
-		private void Awake()
+		
+		[Inject]
+		public void Construct(UIRootViewModel uiRootViewModel, ProgressDataHandler progressDataHandler)
 		{
-			_container = UnityEngine.Object.FindObjectOfType<SceneContext>();
-			_windowsFactory = _container.Container.Resolve<WindowsFactory>();
+			_uiRootViewModel = uiRootViewModel;
+			_progressDataHandler = progressDataHandler;
 		}
 		protected override void OnBind(MenuViewModel viewModel)
 		{
+			
+			_viewModel = viewModel;
 			_disposables.Add(viewModel.CurrentUser.Subscribe(user =>
 			{
-				_currentUser = user;
+				currentUserName.text = user.userName;
+				currentUserAvatar.sprite = PrefabProvider.LoadAsset<Sprite>(user.userAvatar);
 			}));
+
+			continueGameButton.interactable = _viewModel.CurrentUser.CurrentValue.hasSession;
 		}
 
 		private void OnEnable()
 		{
-			_newGameButton.onClick.AddListener(OnNewGameClicked);
-			_continueGameButton.onClick.AddListener(OnContinueGameClicked);
-			_exitButton.onClick.AddListener(OnExitClicked);
-			_changeProfileButton.onClick.AddListener(OnChangeProfileClicked);
+			newGameButton.onClick.AddListener(OnNewGameClicked);
+			continueGameButton.onClick.AddListener(OnContinueGameClicked);
+			exitButton.onClick.AddListener(OnExitClicked);
+			changeProfileButton.onClick.AddListener(OnChangeProfileClicked);
 		}
 		private void OnDisable()
 		{
-			_newGameButton.onClick.RemoveListener(OnNewGameClicked);
-			_continueGameButton.onClick.RemoveListener(OnContinueGameClicked);
-			_exitButton.onClick.RemoveListener(OnExitClicked);
-			_changeProfileButton.onClick.RemoveListener(OnChangeProfileClicked);
+			newGameButton.onClick.RemoveListener(OnNewGameClicked);
+			continueGameButton.onClick.RemoveListener(OnContinueGameClicked);
+			exitButton.onClick.RemoveListener(OnExitClicked);
+			changeProfileButton.onClick.RemoveListener(OnChangeProfileClicked);
 		}
 
 		private void OnChangeProfileClicked()
 		{
-			
+			ChangeProfileWindowViewModel changeProfileWindowViewModel = new ChangeProfileWindowViewModel(_progressDataHandler);
+			_disposables.Add(changeProfileWindowViewModel.CurrentUser.Subscribe(user =>
+			{
+				_viewModel.ChangeUser(user);
+			}));
+			_uiRootViewModel.OpenWindow(changeProfileWindowViewModel);
 		}
 
 		private void OnExitClicked()
 		{
-			Debug.Log("Exit Clicked");
+			Application.Quit();
 		}
 
 		private void OnContinueGameClicked()
 		{
-			Debug.Log("Continue Game Clicked");
+			UserProfileData profileData = _viewModel.CurrentUser.CurrentValue;
+			profileData.isCurrentUser = true;
+			
+			_viewModel.StartGame.Invoke();
 		}
 
 		private void OnNewGameClicked()
 		{
-			Debug.Log("New Game Clicked");
+			UserProfileData profileData = _viewModel.CurrentUser.CurrentValue;
+			
+			profileData.hasSession = true;
+			profileData.playerData = new PlayerData();
+			profileData.isCurrentUser = true;
+			
+			_viewModel.StartGame.Invoke();
 		}
 	}
 }

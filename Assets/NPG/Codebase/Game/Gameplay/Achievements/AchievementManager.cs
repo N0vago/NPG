@@ -118,23 +118,22 @@ namespace NPG.Codebase.Game.Gameplay.Achievements
         public void Load(GameData data)
         {
             string userID = data.currentUserId;
-            int.TryParse(userID, out int id);
-            _unlockedAchievementIDs = data.userData[id].achievementsIDs;
-            _isFirstLaunch = data.userData[id].playerData.playerStatistics.firstLaunch;
-            _greenEnemyCount = data.userData[id].playerData.playerStatistics.greenEnemiesCount;
-            _yellowEnemyCount = data.userData[id].playerData.playerStatistics.yellowEnemiesCount;
-            _redEnemyCount = data.userData[id].playerData.playerStatistics.redEnemiesCount;
+            _isFirstLaunch = data.FindUserProfile(userID).playerData.playerStatistics.firstLaunch;
+            _greenEnemyCount = data.FindUserProfile(userID).playerData.playerStatistics.greenEnemiesCount;
+            _yellowEnemyCount = data.FindUserProfile(userID).playerData.playerStatistics.yellowEnemiesCount;
+            _redEnemyCount = data.FindUserProfile(userID).playerData.playerStatistics.redEnemiesCount;
+            
+            _unlockedAchievementIDs = data.FindUserProfile(userID).achievementsIDs;
         }
 
         public void Save(ref GameData data)
         {
             string userID = data.currentUserId;
-            int.TryParse(userID, out int id);
-            data.userData[id].achievementsIDs = _unlockedAchievementIDs;
-            data.userData[id].playerData.playerStatistics.firstLaunch = _isFirstLaunch;
-            data.userData[id].playerData.playerStatistics.greenEnemiesCount = _greenEnemyCount;
-            data.userData[id].playerData.playerStatistics.yellowEnemiesCount = _yellowEnemyCount;
-            data.userData[id].playerData.playerStatistics.redEnemiesCount = _redEnemyCount;
+            data.FindUserProfile(userID).achievementsIDs = _unlockedAchievementIDs;
+            data.FindUserProfile(userID).playerData.playerStatistics.firstLaunch = _isFirstLaunch;
+            data.FindUserProfile(userID).playerData.playerStatistics.greenEnemiesCount = _greenEnemyCount;
+            data.FindUserProfile(userID).playerData.playerStatistics.yellowEnemiesCount = _yellowEnemyCount;
+            data.FindUserProfile(userID).playerData.playerStatistics.redEnemiesCount = _redEnemyCount;
         }
     }
 }

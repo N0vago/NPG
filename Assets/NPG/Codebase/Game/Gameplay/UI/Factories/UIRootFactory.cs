@@ -1,4 +1,5 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Root;
+﻿using Cysharp.Threading.Tasks;
+using NPG.Codebase.Game.Gameplay.UI.Root;
 using Zenject;
 using Object = UnityEngine.Object;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
@@ -25,7 +26,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Factories
         public void CreateUIRoot(string uiRootAddressableName)
         {
             DestroyUIRoot();
-            
+
             var prefab = PrefabProvider.LoadPrefab(uiRootAddressableName);
             
             var instance = _container.InstantiatePrefab(prefab);

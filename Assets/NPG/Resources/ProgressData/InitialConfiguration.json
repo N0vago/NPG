@@ -3,23 +3,14 @@
     {
       "userName": "BigBoy",
       "userId": "0",
-      "userIconPath": "userIconPath",
+      "userAvatar": "avatar_2",
+      "hasSession": false,
       "isCurrentUser": false,
-      "achievementsIDs": [
-        
-      ],
-      
+      "achievementsIDs": [],
       "playerData": {
         "xPos": -27.0,
         "yPos": 1.0,
         "zPos": -76.0,
-
-        "playerStatistics" : {
-          "firstLaunch": false,
-          "greenEnemiesCount": 0,
-          "yellowEnemiesCount": 0,
-          "redEnemiesCount": 0
-        },
         "inventoryItemData": [
           {
             "ItemIDs": [
@@ -51,13 +42,19 @@
             ],
             "ContainerID": "EnergyGunContainer"
           }
-        ]
+        ],
+        "playerStatistics": {
+          "firstLaunch": false,
+          "greenEnemiesCount": 0,
+          "yellowEnemiesCount": 0,
+          "redEnemiesCount": 0
+        }
       }
     }
   ],
   "currentUserId": "0",
   "gamePreferences": {
     "resolutionWidth": 1920,
-    "resolutionHeight" : 1080
+    "resolutionHeight": 1080
   }
 }

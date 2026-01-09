@@ -16,5 +16,14 @@ namespace NPG.Codebase.Infrastructure.JsonData
             return userData.FindIndex(user => user.userId == currentUserId);
 		}
 
+        public UserProfileData FindUserProfile(string userId)
+        {
+            foreach (var user in userData)
+            {
+                if(user.userId == userId) return user;
+            }
+            throw new KeyNotFoundException();
+        }
+
 	}
 }

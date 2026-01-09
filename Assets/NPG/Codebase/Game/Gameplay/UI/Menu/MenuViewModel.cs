@@ -1,4 +1,5 @@
-﻿using NPG.Codebase.Game.Gameplay.UI.Root;
+﻿using System;
+using NPG.Codebase.Game.Gameplay.UI.Root;
 using NPG.Codebase.Infrastructure.JsonData;
 using R3;
 
@@ -10,6 +11,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Menu
 
 		public ReadOnlyReactiveProperty<UserProfileData> CurrentUser => _currentUser;
 
+		public Action StartGame;
 		public MenuViewModel(UserProfileData initialUser)
 		{
 			_currentUser = new ReactiveProperty<UserProfileData>(initialUser);

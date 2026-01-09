@@ -92,10 +92,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5595e545cdea7734eaf68c92cacb79ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _newGameButton: {fileID: 9040472568123938843}
-  _continueGameButton: {fileID: 4752794457176343230}
-  _exitButton: {fileID: 4187430318280577721}
-  _changeProfileButton: {fileID: 3027195443834265009}
+  newGameButton: {fileID: 9040472568123938843}
+  continueGameButton: {fileID: 4752794457176343230}
+  exitButton: {fileID: 4187430318280577721}
+  changeProfileButton: {fileID: 3027195443834265009}
+  currentUserName: {fileID: 3170493884956988785}
+  currentUserAvatar: {fileID: 5562704024842291955}
 --- !u!1 &390869647455632897
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1e6d8933eeaefb540a4f0e9f827bb075
-    m_Address: UserWindow
+    m_Address: ChangeProfileWindow
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -47,6 +47,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 30d51dc7ac441ac4d87b06e647223916
+    m_Address: avatar_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 351a9b68e0377874e898ad5aa9e1ffcf
     m_Address: RifleSlot
     m_ReadOnly: 0
@@ -62,6 +67,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e782dfc96bf6a842a204e928fe6ea3c
+    m_Address: CreateProfileWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5fb55682d876f6147887948cb0316b71
     m_Address: GrenadeLauncherItem
     m_ReadOnly: 0
@@ -72,13 +82,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b4e9f1b85a075648ae433d80c277bf8
+    m_Address: avatar_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e086a9e08812ba42bffbaba274b25a7
     m_Address: GrenadeLauncherSlot
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7fa0ac9f56300e849b6657eccbb7f7ff
+    m_Address: avatar_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9157fa74959af1647b0625fa41fa87de
     m_Address: PistolItem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9d1b013783527d749a2afdc0e78653f9
+    m_Address: avatar_7
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3340cf722c48af47b44340d6eb458ac
+    m_Address: avatar_5
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -97,6 +127,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc16f2ee5d975e34b8d35c6993982d7d
+    m_Address: avatar_6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d171d4568e1112e4fb98f2f06b409028
     m_Address: DefaultSlot
     m_ReadOnly: 0
@@ -109,6 +144,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e22e467f89f562341808cbe1818894d7
     m_Address: RifleItem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8a5f8e5f944f554fa7ca0bb3783d5ee
+    m_Address: avatar_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff78730ecac151e44bade1cd53c90732
+    m_Address: avatar_8
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

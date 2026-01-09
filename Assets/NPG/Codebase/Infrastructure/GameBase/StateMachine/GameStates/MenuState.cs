@@ -1,9 +1,12 @@
 ﻿using NPG.Codebase.Game.Gameplay.UI.Factories;
 using NPG.Codebase.Game.Gameplay.UI.Menu;
+using NPG.Codebase.Infrastructure.IDs;
 using NPG.Codebase.Infrastructure.JsonData;
 using NPG.Codebase.Infrastructure.ScriptableObjects;
 using NPG.Codebase.Infrastructure.ScriptableObjects.StaticData;
+using NPG.Codebase.Infrastructure.Services;
 using NPG.Codebase.Infrastructure.Services.DataSaving;
+using R3;
 using UnityEngine;
 using Zenject;
 using PrefabProvider = NPG.Codebase.Infrastructure.Services.PrefabProviding.PrefabProvider;
@@ -18,16 +21,24 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
 
 		MenuObjects _menuObjects;
 		UserProfileData _userData;
+		
+		SceneLoader _sceneLoader;
+		GameStateMachine _stateMachine;
+		public MenuState(SceneLoader sceneLoader, GameStateMachine stateMachine)
+		{
+			_sceneLoader = sceneLoader;
+			_stateMachine = stateMachine;
+		}
 		public void Enter(UserProfileData payload)
 		{
 			_container = UnityEngine.Object.FindObjectOfType<SceneContext>().Container;
 			_menuObjects = _container.Resolve<MenuObjects>();
 			_progressDataHandler = _container.Resolve<ProgressDataHandler>();
 			_progressDataHandler.RegisterObserver(this);
-			InitHub();
+			InitMenu();
 		}
 
-		private void InitHub()
+		private void InitMenu()
 		{
 			foreach (var menuObjects in _menuObjects.Objects)
 			{
@@ -44,13 +55,23 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
 						prefab = PrefabProvider.LoadPrefab(menuObjects.addressableName);
 						instance = _container.InstantiatePrefab(prefab, _uiRootFactory.UIRootBinder.transform);
 						MenuBinder binder = instance.GetComponent<MenuBinder>();
-						_uiRootFactory.UIRootViewModel.OpenScreen(new MenuViewModel(_userData));
+						MenuViewModel mvm = new MenuViewModel(_userData);
+						mvm.StartGame += async () =>
+						{
+							await _sceneLoader.LoadSceneAsync((int)SceneIDs.Hub, OnSceneLoaded);
+						};
+						_uiRootFactory.UIRootViewModel.OpenScreen(mvm);
 						_uiRootFactory.UIRootBinder.AttachScreenBinder(binder);
 						break;
 				}
 			}
 		}
-    
+
+		private void OnSceneLoaded()
+		{
+			_stateMachine.Enter<HubState>();
+		}
+
 
 		public void Exit()
 		{

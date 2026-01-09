@@ -23,6 +23,21 @@ namespace NPG.Codebase.Infrastructure.Services.PrefabProviding
                 return null;
             }
         }
+
+        public static T LoadAsset<T>(string addressableName) where T : class
+        {
+            var handle = Addressables.LoadAssetAsync<T>(addressableName);
+            handle.WaitForCompletion();
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                return handle.Result;
+            }
+            else
+            {
+                Debug.LogError($"Failed to load asset at {addressableName}");
+                return null;
+            }
+        }
         
         
         public static GameObject LoadPrefab(string addressableName)
