@@ -65,6 +65,7 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
 						break;
 				}
 			}
+			_uiRootFactory.UIRootBinder.uiController.EnableActions("MainMenu");
 		}
 
 		private void OnSceneLoaded()
@@ -75,7 +76,7 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
 
 		public void Exit()
 		{
-			
+			_uiRootFactory.UIRootBinder.uiController.DisableActions("MainMenu");
 		}
 
 		public void Load(GameData data)

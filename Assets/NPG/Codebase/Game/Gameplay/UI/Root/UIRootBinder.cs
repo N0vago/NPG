@@ -8,6 +8,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
 {
     public class UIRootBinder : MonoBehaviour
     {
+        public UIController uiController;
+        
         private WindowsFactory _windowsFactory;
         
         private UIRootViewModel _viewModel;
@@ -39,8 +41,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
             {
                 _windowsFactory.CloseWindow(e.Value);
             }));
-            
-            OnBind(_viewModel);
+
+            uiController = GetComponent<UIController>();
         }
 
         public void AttachScreenBinder<TViewModel>(Binder<TViewModel> binder) where TViewModel : ViewModel
@@ -50,11 +52,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
 				binder.Bind((TViewModel)viewModel);
 			}));
 		}
-
-        private void OnBind(UIRootViewModel viewModel)
-        {
-            
-        }
+        
 
         private void OnDestroy()
         {

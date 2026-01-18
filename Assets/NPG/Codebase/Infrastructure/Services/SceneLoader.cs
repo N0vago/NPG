@@ -6,21 +6,25 @@ namespace NPG.Codebase.Infrastructure.Services
 {
     public class SceneLoader 
     {
-        public UniTask LoadSceneAsync(int sceneIndex, Action onComplete = null)
+        public bool IsLoading { get; private set; }
+        public async UniTask LoadSceneAsync(int sceneIndex, Action onComplete = null)
         {
-            if (sceneIndex != SceneManager.GetActiveScene().buildIndex)
+            if (sceneIndex == SceneManager.GetActiveScene().buildIndex)
+                return;
+
+            if (IsLoading) 
+                return;
+
+            IsLoading = true;
+            try
             {
-                UniTask asyncOperation = SceneManager.LoadSceneAsync(sceneIndex).ToUniTask();
-
-                asyncOperation.ContinueWith(() =>
-                {
-                    onComplete?.Invoke();
-                });
-                
-                return asyncOperation;
+                await SceneManager.LoadSceneAsync(sceneIndex).ToUniTask();
+                onComplete?.Invoke();
             }
-
-            return UniTask.CompletedTask;
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

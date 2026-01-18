@@ -25,6 +25,7 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
 
         public void Exit()
         {
+            _uiRootFactory.UIRootBinder.uiController.DisableActions("Hub");
         }
 
         public void Enter()
@@ -83,6 +84,8 @@ namespace NPG.Codebase.Infrastructure.GameBase.StateMachine.GameStates
                     Debug.LogError("CinemachineCamera or Target is not initialized properly.");
                 }
             }
+            _uiRootFactory.UIRootBinder.uiController.EnableActions("Hub");
         }
+        
     }
 }

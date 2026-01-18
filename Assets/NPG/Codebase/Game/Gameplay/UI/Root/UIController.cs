@@ -41,52 +41,48 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
             _itemDataBase = itemDataBase;
             _progressDataHandler = progressDataHandler;
 		}
-        
 
-        private void OnEnable()
+        public void EnableActions(string sceneName)
         {
-            switch(SceneManager.GetActiveScene().name)
-            {
-                case "Hub":
+	        switch(sceneName)
+	        {
+		        case "Hub":
 
-					_uiRootViewModel.OpenScreen(new HUDViewModel(new WeaponSelectorViewModel(_equipmentWindowViewModel)));
+			        _uiRootViewModel.OpenScreen(new HUDViewModel(new WeaponSelectorViewModel(_equipmentWindowViewModel)));
 
-					//Equipment window
-					_openEquipmentAction = _inputActions.UI.OpenEquipment;
-					_openEquipmentAction.Enable();
-					_openEquipmentAction.performed += OnOpenEquipment;
+			        //Equipment window
+			        _openEquipmentAction = _inputActions.UI.OpenEquipment;
+			        _openEquipmentAction.Enable();
+			        _openEquipmentAction.performed += OnOpenEquipment;
 
-                    //Menu window
-                    _openMenuWindowAction = _inputActions.UI.OpenMenuWindow;
-					_openMenuWindowAction.Enable();
-					_openMenuWindowAction.performed += OnOpenMenu;
+			        //Menu window
+			        _openMenuWindowAction = _inputActions.UI.OpenMenuWindow;
+			        _openMenuWindowAction.Enable();
+			        _openMenuWindowAction.performed += OnOpenMenu;
 
-					break;
-				case "MainMenu":
-                    return;
-			}
-			
+			        break;
+		        case "MainMenu":
+			        return;
+	        }
         }
 
-
-		private void OnDisable()
+        public void DisableActions(string sceneName)
         {
-            switch(SceneManager.GetActiveScene().name)
-            {
-                case "Hub":
-					_openEquipmentAction.performed -= OnOpenEquipment;
-					_openEquipmentAction.Disable();
+	        switch(sceneName)
+	        {
+		        case "Hub":
+			        _openEquipmentAction.performed -= OnOpenEquipment;
+			        _openEquipmentAction.Disable();
 
-                    _openMenuWindowAction.performed -= OnOpenMenu;
-                    _openMenuWindowAction.Disable();
+			        _openMenuWindowAction.performed -= OnOpenMenu;
+			        _openMenuWindowAction.Disable();
 
-					_uiRootViewModel.CloseWindow(_equipmentWindowViewModel);
-					break;
-				case "MainMenu":
-					return;
-			}
+			        _uiRootViewModel.CloseWindow(_equipmentWindowViewModel);
+			        break;
+		        case "MainMenu":
+			        return;
+	        }
         }
-
 		private void OnOpenMenu(InputAction.CallbackContext context)
 		{
             if (_menuWindowViewModel != null)
