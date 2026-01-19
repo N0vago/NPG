@@ -26,7 +26,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.HUD
             {
                 Debug.LogError("No EquipmentWindowViewModel");
             }
-            ItemContainerViewModel containerViewModel = _equipmentWindowViewModel.GetItemContainer(itemType).CurrentValue;
+            ItemContainerViewModel containerViewModel = EquipmentWindowViewModel.GetItemContainer(itemType).CurrentValue;
             
             if (containerViewModel == null) return;
             if (containerViewModel.Items.Count == 0) return;

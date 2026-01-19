@@ -49,7 +49,12 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
         {
 			_subscriptions.Add(_viewModel.OpenedScreen.Subscribe(viewModel =>
 			{
-				binder.Bind((TViewModel)viewModel);
+                if (viewModel is not TViewModel typedViewModel)
+                {
+                    return;
+                }
+
+                binder.Bind(typedViewModel);
 			}));
 		}
         

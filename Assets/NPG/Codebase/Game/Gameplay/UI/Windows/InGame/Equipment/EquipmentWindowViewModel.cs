@@ -14,10 +14,10 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
 {
     public class EquipmentWindowViewModel : WindowViewModel, IDataWriter
     {
-        private readonly Dictionary<(ItemType, int), ReactiveProperty<SlotContainerViewModel>> _slotContainers = new();
-        private readonly Dictionary<(ItemType, int), ReactiveProperty<ItemContainerViewModel>> _itemContainers = new();
+        private static readonly Dictionary<(ItemType, int), ReactiveProperty<SlotContainerViewModel>> _slotContainers = new();
+        private static readonly Dictionary<(ItemType, int), ReactiveProperty<ItemContainerViewModel>> _itemContainers = new();
         
-        private readonly Dictionary<string, ItemContainerViewModel> _containerById = new();
+        private static readonly Dictionary<string, ItemContainerViewModel> _containerById = new();
 
         private ItemDataBase _itemDataBase;
         private ProgressDataHandler _progressDataHandler;
@@ -53,19 +53,19 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
 			_progressDataHandler.RegisterObserver(this);
 		}
 
-		public ReadOnlyReactiveProperty<SlotContainerViewModel> GetSlotContainer(ItemType type)
+		public static ReadOnlyReactiveProperty<SlotContainerViewModel> GetSlotContainer(ItemType type)
             => GetSlotContainer((type, 0));
 
-        public ReadOnlyReactiveProperty<ItemContainerViewModel> GetItemContainer(ItemType type)
+        public static ReadOnlyReactiveProperty<ItemContainerViewModel> GetItemContainer(ItemType type)
             => GetItemContainer((type, 0));
         
-        public ReadOnlyReactiveProperty<SlotContainerViewModel> GetSlotContainer((ItemType, int) key)
+        public static ReadOnlyReactiveProperty<SlotContainerViewModel> GetSlotContainer((ItemType, int) key)
             => _slotContainers.TryGetValue(key, out var container) ? container : null;
 
-        public ReadOnlyReactiveProperty<ItemContainerViewModel> GetItemContainer((ItemType, int) key)
+        public static ReadOnlyReactiveProperty<ItemContainerViewModel> GetItemContainer((ItemType, int) key)
             => _itemContainers.TryGetValue(key, out var container) ? container : null;
         
-        public ItemContainerViewModel GetItemContainer(string containerId) 
+        public static ItemContainerViewModel GetItemContainer(string containerId) 
             => _containerById.TryGetValue(containerId, out var container) ? container : null;
         
         public List<ItemContainerViewModel> GetAllItemContainers()

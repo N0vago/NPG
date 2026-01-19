@@ -20,7 +20,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Root
         public void Dispose()
         {
             CloseAllWindows();
-            _openedScreen?.Dispose();
+            _openedScreen.Value?.Dispose();
         }
         
         public void OpenScreen(ViewModel screenViewModel)

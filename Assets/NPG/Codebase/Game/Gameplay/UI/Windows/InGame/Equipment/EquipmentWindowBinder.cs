@@ -37,19 +37,19 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
 
             _equipmentWindowViewModel = equipmentWindowViewModel;
             
-            _disposables.Add(_equipmentWindowViewModel
+            _disposables.Add(EquipmentWindowViewModel
                 .GetItemContainer(ItemType.None)
                 .Subscribe(inventoryItemContainerBinder.Bind));
 
-            _disposables.Add(_equipmentWindowViewModel
+            _disposables.Add(EquipmentWindowViewModel
                 .GetSlotContainer(ItemType.None)
                 .Subscribe(inventorySlotContainerBinder.Bind));
             
-            _disposables.Add(_equipmentWindowViewModel
+            _disposables.Add(EquipmentWindowViewModel
                 .GetItemContainer(ItemType.Armor)
                 .Subscribe(armorItemContainerBinder.Bind));
 
-            _disposables.Add(_equipmentWindowViewModel
+            _disposables.Add(EquipmentWindowViewModel
                 .GetSlotContainer(ItemType.Armor)
                 .Subscribe(armorSlotContainerBinder.Bind));
             
@@ -66,8 +66,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
             {
                 var type = weaponTypes[i];
 
-                var slot = _equipmentWindowViewModel.GetSlotContainer(type);
-                var item = _equipmentWindowViewModel.GetItemContainer(type);
+                var slot = EquipmentWindowViewModel.GetSlotContainer(type);
+                var item = EquipmentWindowViewModel.GetItemContainer(type);
 
                 if (slot != null && i < weaponSlotContainerBinders.Length)
                 {
@@ -82,8 +82,8 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
             
             for (int i = 0; i < 5; i++)
             {
-                var slot = _equipmentWindowViewModel.GetSlotContainer((ItemType.Artefact, i));
-                var item = _equipmentWindowViewModel.GetItemContainer((ItemType.Artefact, i));
+                var slot = EquipmentWindowViewModel.GetSlotContainer((ItemType.Artefact, i));
+                var item = EquipmentWindowViewModel.GetItemContainer((ItemType.Artefact, i));
 
                 if (slot != null && i < artefactSlotContainerBinders.Length)
                 {
@@ -101,7 +101,7 @@ namespace NPG.Codebase.Game.Gameplay.UI.Windows.InGame.Equipment
 
         public void RequestItemAddToContainer(ItemViewModel itemViewModel, string containerId)
         {
-            var container = _equipmentWindowViewModel.GetItemContainer(containerId);
+            var container = EquipmentWindowViewModel.GetItemContainer(containerId);
             if (container == null)
             {
                 Debug.LogError($"[EquipmentViewModel] Cannot find container with id: {containerId}");
